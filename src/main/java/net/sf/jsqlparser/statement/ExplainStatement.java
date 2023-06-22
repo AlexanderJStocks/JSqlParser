@@ -10,7 +10,6 @@
 package net.sf.jsqlparser.statement;
 
 import net.sf.jsqlparser.statement.select.Select;
-
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ import java.util.stream.Collectors;
 public class ExplainStatement implements Statement {
 
     private Select select;
+
     private LinkedHashMap<OptionType, Option> options;
 
     public ExplainStatement() {
@@ -47,13 +47,12 @@ public class ExplainStatement implements Statement {
         if (options == null) {
             options = new LinkedHashMap<>();
         }
-
         options.put(option.getType(), option);
     }
 
     /**
      * Returns the first option that matches this optionType
-     * 
+     *
      * @param optionType the option type to retrieve an Option for
      * @return an option of that type, or null. In case of duplicate options, the first found option
      *         will be returned.
@@ -70,10 +69,8 @@ public class ExplainStatement implements Statement {
         StringBuilder statementBuilder = new StringBuilder("EXPLAIN");
         if (options != null) {
             statementBuilder.append(" ");
-            statementBuilder.append(options.values().stream().map(Option::formatOption)
-                    .collect(Collectors.joining(" ")));
+            statementBuilder.append(options.values().stream().map(Option::formatOption).collect(Collectors.joining(" ")));
         }
-
         statementBuilder.append(" ");
         statementBuilder.append(select.toString());
         return statementBuilder.toString();
@@ -85,6 +82,7 @@ public class ExplainStatement implements Statement {
     }
 
     public enum OptionType {
+
         ANALYZE, VERBOSE, COSTS, BUFFERS, FORMAT;
 
         public static OptionType from(String type) {
@@ -95,6 +93,7 @@ public class ExplainStatement implements Statement {
     public static class Option implements Serializable {
 
         private final OptionType type;
+
         private String value;
 
         public Option(OptionType type) {
@@ -114,9 +113,7 @@ public class ExplainStatement implements Statement {
         }
 
         public String formatOption() {
-            return type.name() + (value != null
-                    ? " " + value
-                    : "");
+            return type.name() + (value != null ? " " + value : "");
         }
 
         public Option withValue(String value) {

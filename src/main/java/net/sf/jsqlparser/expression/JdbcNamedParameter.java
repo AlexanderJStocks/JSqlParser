@@ -12,10 +12,13 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class JdbcNamedParameter extends ASTNodeAccessImpl implements Expression {
+
     private String parameterCharacter = ":";
+
     private String name;
 
-    public JdbcNamedParameter() {}
+    public JdbcNamedParameter() {
+    }
 
     public JdbcNamedParameter(String name) {
         this.name = name;

@@ -18,7 +18,8 @@ public class AllTableColumns extends ASTNodeAccessImpl implements Expression {
 
     private Table table;
 
-    public AllTableColumns() {}
+    public AllTableColumns() {
+    }
 
     public AllTableColumns(Table tableName) {
         this.table = tableName;

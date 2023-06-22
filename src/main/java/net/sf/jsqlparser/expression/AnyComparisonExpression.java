@@ -18,7 +18,9 @@ import net.sf.jsqlparser.statement.select.Select;
  * @author toben
  */
 public class AnyComparisonExpression extends ASTNodeAccessImpl implements Expression {
+
     private final Select select;
+
     private final AnyType anyType;
 
     public AnyComparisonExpression(AnyType anyType, Select select) {
@@ -29,7 +31,6 @@ public class AnyComparisonExpression extends ASTNodeAccessImpl implements Expres
     public Select getSelect() {
         return select;
     }
-
 
     @Override
     public void accept(ExpressionVisitor expressionVisitor) {

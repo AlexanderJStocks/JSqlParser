@@ -9,10 +9,10 @@
  */
 package net.sf.jsqlparser.statement.select;
 
-@SuppressWarnings({"PMD.UncommentedEmptyMethodBody"})
+@SuppressWarnings({ "PMD.UncommentedEmptyMethodBody" })
 public class SelectItemVisitorAdapter implements SelectItemVisitor {
+
     @Override
     public void visit(SelectItem item) {
-
     }
 }

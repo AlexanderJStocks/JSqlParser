@@ -16,7 +16,6 @@ import net.sf.jsqlparser.expression.JdbcParameter;
 import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.schema.Column;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -25,11 +24,12 @@ import java.util.Optional;
 public class FullTextSearch extends ASTNodeAccessImpl implements Expression {
 
     private ExpressionList<Column> _matchColumns;
+
     private Expression _againstValue;
+
     private String _searchModifier;
 
     public FullTextSearch() {
-
     }
 
     public void setMatchColumns(ExpressionList<Column> columns) {
@@ -81,9 +81,7 @@ public class FullTextSearch extends ASTNodeAccessImpl implements Expression {
                 columnsListCommaSeperated += ",";
             }
         }
-
-        return "MATCH (" + columnsListCommaSeperated + ") AGAINST (" + this._againstValue +
-                (this._searchModifier != null ? " " + this._searchModifier : "") + ")";
+        return "MATCH (" + columnsListCommaSeperated + ") AGAINST (" + this._againstValue + (this._searchModifier != null ? " " + this._searchModifier : "") + ")";
     }
 
     public FullTextSearch withMatchColumns(ExpressionList<Column> matchColumns) {
@@ -106,8 +104,7 @@ public class FullTextSearch extends ASTNodeAccessImpl implements Expression {
     }
 
     public FullTextSearch addMatchColumns(Collection<? extends Column> matchColumns) {
-        ExpressionList<Column> collection =
-                Optional.ofNullable(getMatchColumns()).orElseGet(ExpressionList::new);
+        ExpressionList<Column> collection = Optional.ofNullable(getMatchColumns()).orElseGet(ExpressionList::new);
         collection.addAll(matchColumns);
         return this.withMatchColumns(collection);
     }

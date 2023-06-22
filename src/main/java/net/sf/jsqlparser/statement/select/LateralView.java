@@ -11,17 +11,19 @@ package net.sf.jsqlparser.statement.select;
 
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Function;
-
 import java.io.Serializable;
 
 public class LateralView implements Serializable {
+
     private boolean isUsingOuter = false;
+
     private Function generatorFunction;
+
     private Alias tableAlias = null;
+
     private Alias columnAlias;
 
-    public LateralView(boolean useOuter, Function generatorFunction, Alias tableAlias,
-            Alias columnAlias) {
+    public LateralView(boolean useOuter, Function generatorFunction, Alias tableAlias, Alias columnAlias) {
         this.isUsingOuter = useOuter;
         this.generatorFunction = generatorFunction;
         this.tableAlias = tableAlias;
@@ -84,18 +86,14 @@ public class LateralView implements Serializable {
 
     public StringBuilder appendTo(StringBuilder builder) {
         builder.append("LATERAL VIEW");
-
         if (isUsingOuter) {
             builder.append(" OUTER");
         }
-
         builder.append(" ").append(generatorFunction);
         if (tableAlias != null) {
             builder.append(" ").append(tableAlias);
         }
-
         builder.append(" ").append(columnAlias);
-
         return builder;
     }
 

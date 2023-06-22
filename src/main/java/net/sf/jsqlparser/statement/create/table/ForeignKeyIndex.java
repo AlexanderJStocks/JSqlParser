@@ -14,7 +14,6 @@ import net.sf.jsqlparser.statement.ReferentialAction;
 import net.sf.jsqlparser.statement.ReferentialAction.Action;
 import net.sf.jsqlparser.statement.ReferentialAction.Type;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -26,7 +25,9 @@ import java.util.Set;
 public class ForeignKeyIndex extends NamedConstraint {
 
     private Table table;
+
     private List<String> referencedColumnNames;
+
     private Set<ReferentialAction> referentialActions = new LinkedHashSet<>(2);
 
     public Table getTable() {
@@ -70,8 +71,7 @@ public class ForeignKeyIndex extends NamedConstraint {
      * @return
      */
     public ReferentialAction getReferentialAction(Type type) {
-        return referentialActions.stream().filter(ra -> type.equals(ra.getType())).findFirst()
-                .orElse(null);
+        return referentialActions.stream().filter(ra -> type.equals(ra.getType())).findFirst().orElse(null);
     }
 
     private void setReferentialAction(Type type, Action action, boolean set) {
@@ -119,8 +119,7 @@ public class ForeignKeyIndex extends NamedConstraint {
 
     @Override
     public String toString() {
-        StringBuilder b = new StringBuilder(super.toString()).append(" REFERENCES ").append(table)
-                .append(PlainSelect.getStringList(getReferencedColumnNames(), true, true));
+        StringBuilder b = new StringBuilder(super.toString()).append(" REFERENCES ").append(table).append(PlainSelect.getStringList(getReferencedColumnNames(), true, true));
         referentialActions.forEach(b::append);
         return b.toString();
     }
@@ -146,15 +145,13 @@ public class ForeignKeyIndex extends NamedConstraint {
     }
 
     public ForeignKeyIndex addReferencedColumnNames(String... referencedColumnNames) {
-        List<String> collection =
-                Optional.ofNullable(getReferencedColumnNames()).orElseGet(ArrayList::new);
+        List<String> collection = Optional.ofNullable(getReferencedColumnNames()).orElseGet(ArrayList::new);
         Collections.addAll(collection, referencedColumnNames);
         return this.withReferencedColumnNames(collection);
     }
 
     public ForeignKeyIndex addReferencedColumnNames(Collection<String> referencedColumnNames) {
-        List<String> collection =
-                Optional.ofNullable(getReferencedColumnNames()).orElseGet(ArrayList::new);
+        List<String> collection = Optional.ofNullable(getReferencedColumnNames()).orElseGet(ArrayList::new);
         collection.addAll(referencedColumnNames);
         return this.withReferencedColumnNames(collection);
     }
@@ -203,5 +200,4 @@ public class ForeignKeyIndex extends NamedConstraint {
     public ForeignKeyIndex withIndexSpec(List<String> idxSpec) {
         return (ForeignKeyIndex) super.withIndexSpec(idxSpec);
     }
-
 }

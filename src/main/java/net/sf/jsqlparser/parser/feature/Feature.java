@@ -84,7 +84,6 @@ public enum Feature {
      * "INTO table(, table)*"
      */
     selectInto,
-
     /**
      * @see Limit
      */
@@ -109,7 +108,7 @@ public enum Feature {
     limitOffset,
     /**
      * "OFFSET offset"
-     * 
+     *
      * @see Offset
      */
     offset,
@@ -119,14 +118,13 @@ public enum Feature {
      * @see Offset#getOffsetParam()
      */
     offsetParam,
-
     /**
      * @see Fetch
      */
     fetch,
     /**
      * "FETCH FIRST row_count (ROW | ROWS) ONLY"
-     * 
+     *
      * @see Fetch#isFetchParamFirst()
      */
     fetchFirst,
@@ -136,7 +134,6 @@ public enum Feature {
      * @see Fetch#isFetchParamFirst()
      */
     fetchNext,
-
     /**
      * "JOIN"
      */
@@ -189,9 +186,8 @@ public enum Feature {
      * "APPLY" join
      */
     joinApply,
-
-    joinWindow, joinUsingColumns,
-
+    joinWindow,
+    joinUsingColumns,
     /**
      * "SKIP variable" | "SKIP ?" | "SKIP rowCount"
      *
@@ -216,7 +212,6 @@ public enum Feature {
      * @see OptimizeFor
      */
     optimizeFor,
-
     /**
      * "UNIQUE" keyword
      */
@@ -229,7 +224,6 @@ public enum Feature {
      * "DISTINCT ON (col1, ...)"
      */
     distinctOn,
-
     /**
      * "ORDER BY"
      */
@@ -238,7 +232,6 @@ public enum Feature {
      * "ORDER BY expression [ NULLS { FIRST | LAST } ]"
      */
     orderByNullOrdering,
-
     /**
      * "FOR UPDATE"
      */
@@ -259,8 +252,6 @@ public enum Feature {
      * "FOR UPDATE SKIP LOCKED"
      */
     selectForUpdateSkipLocked,
-
-
     /**
      * SQL "INSERT" statement is allowed
      */
@@ -295,7 +286,6 @@ public enum Feature {
      * @see SelectExpressionItem
      */
     insertReturningExpressionList,
-
     /**
      * "VALUES"
      */
@@ -304,7 +294,6 @@ public enum Feature {
      * @see net.sf.jsqlparser.statement.select.Values
      */
     values,
-
     /**
      * SQL "UPDATE" statement is allowed
      *
@@ -322,7 +311,9 @@ public enum Feature {
     /**
      * UPDATE table SET (col, ...) = (SELECT col, ... )"
      */
-    updateUseSelect, updateOrderBy, updateLimit,
+    updateUseSelect,
+    updateOrderBy,
+    updateLimit,
     /**
      * "RETURNING expr(, expr)*"
      *
@@ -357,7 +348,6 @@ public enum Feature {
      * @see SelectExpressionItem
      */
     deleteReturningExpressionList,
-
     /**
      * SQL "UPSERT" statement is allowed
      *
@@ -372,7 +362,6 @@ public enum Feature {
      * @see Merge
      */
     merge,
-
     /**
      * SQL "ALTER" statement is allowed
      *
@@ -401,15 +390,12 @@ public enum Feature {
      * SQL "ALTER INDEX" statement is allowed
      */
     alterIndex,
-
-
     /**
      * SQL "ANALYZE" statement is allowed
      *
      * @see Analyze
      */
     analyze,
-
     /**
      * SQL "TRUNCATE" statement is allowed
      *
@@ -421,8 +407,10 @@ public enum Feature {
      *
      * @see Execute
      */
-    execute, executeExec, executeCall, executeExecute,
-
+    execute,
+    executeExec,
+    executeCall,
+    executeExecute,
     /**
      * SQL "EXECUTE" statement is allowed
      */
@@ -431,7 +419,6 @@ public enum Feature {
      * SQL "EXECUTE IMMEDIATE" statement is allowed
      */
     executeStatementImmediate,
-
     executeUsing,
     /**
      * SQL "REPLACE" statement is allowed
@@ -445,8 +432,17 @@ public enum Feature {
      *
      * @see Drop
      */
-    drop, dropTable, dropIndex, dropView, dropSchema, dropSequence, dropTableIfExists, dropIndexIfExists, dropViewIfExists, dropSchemaIfExists, dropSequenceIfExists,
-
+    drop,
+    dropTable,
+    dropIndex,
+    dropView,
+    dropSchema,
+    dropSequence,
+    dropTableIfExists,
+    dropIndexIfExists,
+    dropViewIfExists,
+    dropSchemaIfExists,
+    dropSequenceIfExists,
     /**
      * SQL "CREATE SCHEMA" statement is allowed
      *
@@ -551,7 +547,6 @@ public enum Feature {
      * "COMMENT ON view"
      */
     commentOnView,
-
     /**
      * SQL "DESCRIBE" statement is allowed
      *
@@ -634,14 +629,16 @@ public enum Feature {
      * @see PivotXml
      */
     pivotXml,
-
-    setOperation, setOperationUnion, setOperationIntersect, setOperationExcept, setOperationMinus,
-
+    setOperation,
+    setOperationUnion,
+    setOperationIntersect,
+    setOperationExcept,
+    setOperationMinus,
     /**
      * "WITH name query"
      */
-    withItem, withItemRecursive,
-
+    withItem,
+    withItemRecursive,
     lateralSubSelect,
     /**
      * @see ValuesList
@@ -651,7 +648,6 @@ public enum Feature {
      * @see TableFunction
      */
     tableFunction,
-
     // JDBC
     /**
      * @see JdbcParameter
@@ -661,7 +657,6 @@ public enum Feature {
      * @see JdbcNamedParameter
      */
     jdbcNamedParameter,
-
     // EXPRESSIONS
     /**
      * "LIKE"
@@ -671,16 +666,12 @@ public enum Feature {
      * "SIMILAR TO"
      */
     exprSimilarTo,
-
     // VENDOR SPECIFIC SYNTAX FEATURES
-
     /**
      * @see KSQLWindow
      */
     kSqlWindow,
-
     // ORACLE
-
     /**
      * allows old oracle join syntax (+)
      *
@@ -702,51 +693,44 @@ public enum Feature {
      *
      * @see OracleHierarchicalExpression
      */
-    oracleHierarchicalExpression, oracleOrderBySiblings,
-
+    oracleHierarchicalExpression,
+    oracleOrderBySiblings,
     // MYSQL
-
-    mySqlHintStraightJoin, mysqlSqlCacheFlag, mysqlCalcFoundRows,
-
+    mySqlHintStraightJoin,
+    mysqlSqlCacheFlag,
+    mysqlCalcFoundRows,
     // SQLSERVER
-
     /**
      * "FOR XML PATH(...)"
      */
     selectForXmlPath,
-
     /**
      * allows square brackets for names, disabled by default
      */
     allowSquareBracketQuotation(false),
-
     /**
      * allow parsing of RDBMS specific syntax by switching off SQL Standard Compliant Syntax
      */
     allowPostgresSpecificSyntax(false),
-
     // PERFORMANCE
-
     /**
      * allows complex expression parameters or named parameters for functions will be switched off,
      * when deep nesting of functions is detected
      */
     allowComplexParsing(true),
-
     /**
      * allows passing through Unsupported Statements as a plain List of Tokens needs to be switched
      * off, when VALIDATING statements or parsing blocks
      */
     allowUnsupportedStatements(false),
-
     timeOut(8000),
-
     /**
      * allows Backslash '\' as Escape Character
      */
-    allowBackslashEscapeCharacter(false),;
+    allowBackslashEscapeCharacter(false);
 
     private final Object value;
+
     private final boolean configurable;
 
     /**
@@ -774,5 +758,4 @@ public enum Feature {
     public boolean isConfigurable() {
         return configurable;
     }
-
 }

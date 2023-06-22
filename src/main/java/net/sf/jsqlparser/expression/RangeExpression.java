@@ -12,7 +12,9 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class RangeExpression extends ASTNodeAccessImpl implements Expression {
+
     private Expression startExpression;
+
     private Expression endExpression;
 
     public RangeExpression(Expression startExpression, Expression endExpression) {

@@ -18,7 +18,8 @@ public class Parenthesis extends ASTNodeAccessImpl implements Expression {
 
     private Expression expression;
 
-    public Parenthesis() {}
+    public Parenthesis() {
+    }
 
     public Parenthesis(Expression expression) {
         setExpression(expression);

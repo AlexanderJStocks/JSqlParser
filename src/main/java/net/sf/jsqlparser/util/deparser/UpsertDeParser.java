@@ -13,14 +13,14 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.statement.upsert.Upsert;
 
-@SuppressWarnings({"PMD.UncommentedEmptyMethodBody"})
+@SuppressWarnings({ "PMD.UncommentedEmptyMethodBody" })
 public class UpsertDeParser extends AbstractDeParser<Upsert> {
 
     private ExpressionDeParser expressionVisitor;
+
     private SelectDeParser selectVisitor;
 
-    public UpsertDeParser(ExpressionDeParser expressionVisitor, SelectDeParser selectVisitor,
-            StringBuilder buffer) {
+    public UpsertDeParser(ExpressionDeParser expressionVisitor, SelectDeParser selectVisitor, StringBuilder buffer) {
         super(buffer);
         this.expressionVisitor = expressionVisitor;
         this.expressionVisitor.setSelectVisitor(selectVisitor);
@@ -29,9 +29,9 @@ public class UpsertDeParser extends AbstractDeParser<Upsert> {
     }
 
     @Override
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
     public void deParse(Upsert upsert) {
-        switch (upsert.getUpsertType()) {
+        switch(upsert.getUpsertType()) {
             case REPLACE:
             case REPLACE_SET:
                 buffer.append("REPLACE ");
@@ -55,12 +55,10 @@ public class UpsertDeParser extends AbstractDeParser<Upsert> {
             default:
                 buffer.append("UPSERT ");
         }
-
         if (upsert.isUsingInto()) {
             buffer.append("INTO ");
         }
         buffer.append(upsert.getTable().getFullyQualifiedName());
-
         if (upsert.getUpdateSets() != null) {
             buffer.append(" SET ");
             deparseUpdateSets(upsert.getUpdateSets(), buffer, expressionVisitor);
@@ -68,16 +66,13 @@ public class UpsertDeParser extends AbstractDeParser<Upsert> {
             if (upsert.getColumns() != null) {
                 upsert.getColumns().accept(expressionVisitor);
             }
-
             if (upsert.getExpressions() != null) {
                 upsert.getExpressions().accept(expressionVisitor);
             }
-
             if (upsert.getSelect() != null) {
                 buffer.append(" ");
                 upsert.getSelect().accept(selectVisitor);
             }
-
             if (upsert.getDuplicateUpdateSets() != null) {
                 buffer.append(" ON DUPLICATE KEY UPDATE ");
                 deparseUpdateSets(upsert.getDuplicateUpdateSets(), buffer, expressionVisitor);
@@ -100,5 +95,4 @@ public class UpsertDeParser extends AbstractDeParser<Upsert> {
     public void setSelectVisitor(SelectDeParser visitor) {
         selectVisitor = visitor;
     }
-
 }

@@ -12,7 +12,6 @@ package net.sf.jsqlparser.statement.insert;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.update.UpdateSet;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,7 +20,7 @@ import java.util.Objects;
 
 /**
  * https://www.postgresql.org/docs/current/sql-insert.html
- * 
+ *
  * <pre>
  * conflict_action is one of:
  *
@@ -33,8 +32,8 @@ import java.util.Objects;
  *               [ WHERE condition ]
  * </pre>
  */
-
 public class InsertConflictAction implements Serializable {
+
     ConflictActionType conflictActionType;
 
     private List<UpdateSet> updateSets;
@@ -42,8 +41,7 @@ public class InsertConflictAction implements Serializable {
     Expression whereExpression;
 
     public InsertConflictAction(ConflictActionType conflictActionType) {
-        this.conflictActionType = Objects.requireNonNull(conflictActionType,
-                "The Conflict Action Type is mandatory and must not be Null.");
+        this.conflictActionType = Objects.requireNonNull(conflictActionType, "The Conflict Action Type is mandatory and must not be Null.");
     }
 
     public List<UpdateSet> getUpdateSets() {
@@ -64,8 +62,7 @@ public class InsertConflictAction implements Serializable {
     }
 
     public void setConflictActionType(ConflictActionType conflictActionType) {
-        this.conflictActionType = Objects.requireNonNull(conflictActionType,
-                "The Conflict Action Type is mandatory and must not be Null.");
+        this.conflictActionType = Objects.requireNonNull(conflictActionType, "The Conflict Action Type is mandatory and must not be Null.");
     }
 
     public InsertConflictAction withConflictActionType(ConflictActionType conflictActionType) {
@@ -105,14 +102,13 @@ public class InsertConflictAction implements Serializable {
 
     @SuppressWarnings("PMD.SwitchStmtsShouldHaveDefault")
     public StringBuilder appendTo(StringBuilder builder) {
-        switch (conflictActionType) {
+        switch(conflictActionType) {
             case DO_NOTHING:
                 builder.append(" DO NOTHING");
                 break;
             case DO_UPDATE:
                 builder.append(" DO UPDATE SET ");
                 UpdateSet.appendUpdateSetsTo(builder, updateSets);
-
                 if (whereExpression != null) {
                     builder.append(" WHERE ").append(whereExpression);
                 }

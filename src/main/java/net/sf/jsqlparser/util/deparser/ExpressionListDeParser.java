@@ -14,12 +14,10 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.NamedExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
-
 import java.util.Collections;
 import java.util.List;
 
-public class ExpressionListDeParser<T extends Expression>
-        extends AbstractDeParser<ExpressionList<?>> {
+public class ExpressionListDeParser<T extends Expression> extends AbstractDeParser<ExpressionList<?>> {
 
     private final ExpressionVisitor expressionVisitor;
 
@@ -31,14 +29,9 @@ public class ExpressionListDeParser<T extends Expression>
     @Override
     public void deParse(ExpressionList<?> expressionList) {
         // @todo: remove this NameExpressionList related part
-        String comma = expressionList instanceof NamedExpressionList
-                ? " "
-                : ", ";
+        String comma = expressionList instanceof NamedExpressionList ? " " : ", ";
         // @todo: remove this NameExpressionList related part
-        List<String> names = expressionList instanceof NamedExpressionList
-                ? ((NamedExpressionList) expressionList).getNames()
-                : Collections.nCopies(expressionList.size(), "");
-
+        List<String> names = expressionList instanceof NamedExpressionList ? ((NamedExpressionList) expressionList).getNames() : Collections.nCopies(expressionList.size(), "");
         if (expressionList != null) {
             if (expressionList instanceof ParenthesedExpressionList<?>) {
                 buffer.append("(");
@@ -48,7 +41,6 @@ public class ExpressionListDeParser<T extends Expression>
                 if (i > 0) {
                     buffer.append(comma);
                 }
-
                 // @todo: remove this NameExpressionList related part
                 String name = names.get(i);
                 if (!name.equals("")) {
@@ -58,7 +50,6 @@ public class ExpressionListDeParser<T extends Expression>
                 expression.accept(expressionVisitor);
                 i++;
             }
-
             if (expressionList instanceof ParenthesedExpressionList<?>) {
                 buffer.append(")");
             }

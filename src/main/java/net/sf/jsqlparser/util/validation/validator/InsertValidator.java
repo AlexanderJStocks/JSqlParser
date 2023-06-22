@@ -20,35 +20,26 @@ import net.sf.jsqlparser.util.validation.ValidationCapability;
  */
 public class InsertValidator extends AbstractValidator<Insert> {
 
-
     @Override
     public void validate(Insert insert) {
         for (ValidationCapability c : getCapabilities()) {
             validateFeature(c, Feature.insert);
-
             if (insert.getSelect() instanceof Values) {
-                validateOptionalFeature(c, insert.getSelect().as(Values.class),
-                        Feature.insertValues);
+                validateOptionalFeature(c, insert.getSelect().as(Values.class), Feature.insertValues);
             }
-
-            validateOptionalFeature(c, insert.getModifierPriority(),
-                    Feature.insertModifierPriority);
+            validateOptionalFeature(c, insert.getModifierPriority(), Feature.insertModifierPriority);
             validateFeature(c, insert.isModifierIgnore(), Feature.insertModifierIgnore);
             validateOptionalFeature(c, insert.getSelect(), Feature.insertFromSelect);
             validateFeature(c, insert.isUseSet(), Feature.insertUseSet);
             validateFeature(c, insert.isUseDuplicate(), Feature.insertUseDuplicateKeyUpdate);
-            validateOptionalFeature(c, insert.getReturningClause(),
-                    Feature.insertReturningExpressionList);
+            validateOptionalFeature(c, insert.getReturningClause(), Feature.insertReturningExpressionList);
         }
-
         validateOptionalFromItem(insert.getTable());
         validateOptionalExpressions(insert.getColumns());
-
         if (insert.getSelect() instanceof Values) {
             insert.getSelect().accept(getValidator(StatementValidator.class));
             validateOptionalExpressions(insert.getValues().getExpressions());
         }
-
         if (insert.getSetUpdateSets() != null) {
             ExpressionValidator v = getValidator(ExpressionValidator.class);
             // TODO is this useful?
@@ -59,7 +50,6 @@ public class InsertValidator extends AbstractValidator<Insert> {
                 updateSet.getValues().forEach(c -> c.accept(v));
             }
         }
-
         if (insert.getDuplicateUpdateSets() != null) {
             ExpressionValidator v = getValidator(ExpressionValidator.class);
             // TODO is this useful?
@@ -70,11 +60,9 @@ public class InsertValidator extends AbstractValidator<Insert> {
                 updateSet.getValues().forEach(c -> c.accept(v));
             }
         }
-
         if (insert.getReturningClause() != null) {
             SelectValidator v = getValidator(SelectValidator.class);
             insert.getReturningClause().forEach(c -> c.accept(v));
         }
     }
-
 }

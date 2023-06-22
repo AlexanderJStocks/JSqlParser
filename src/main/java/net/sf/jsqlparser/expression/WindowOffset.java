@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class WindowOffset implements Serializable {
 
     public enum Type {
+
         PRECEDING, FOLLOWING, CURRENT, EXPR;
 
         public static Type from(String type) {
@@ -22,6 +23,7 @@ public class WindowOffset implements Serializable {
     }
 
     private Expression expression;
+
     private Type type;
 
     public Expression getExpression() {
@@ -51,7 +53,7 @@ public class WindowOffset implements Serializable {
             }
         } else {
             if (type != null) {
-                switch (type) {
+                switch(type) {
                     case PRECEDING:
                         buffer.append(" UNBOUNDED PRECEDING");
                         break;
@@ -82,5 +84,4 @@ public class WindowOffset implements Serializable {
     public <E extends Expression> E getExpression(Class<E> type) {
         return type.cast(getExpression());
     }
-
 }

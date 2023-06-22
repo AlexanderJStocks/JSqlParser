@@ -21,7 +21,6 @@ import net.sf.jsqlparser.statement.select.SelectVisitor;
 import net.sf.jsqlparser.statement.select.SetOperationList;
 import net.sf.jsqlparser.statement.select.Values;
 import net.sf.jsqlparser.statement.select.WithItem;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,13 +31,15 @@ import java.util.List;
  *
  * @author tw
  */
-@SuppressWarnings({"PMD.UncommentedEmptyMethodBody"})
+@SuppressWarnings({ "PMD.UncommentedEmptyMethodBody" })
 public abstract class ConnectExpressionsVisitor implements SelectVisitor, SelectItemVisitor {
 
     private String alias = "expr";
+
     private final List<SelectItem> itemsExpr = new LinkedList<SelectItem>();
 
-    public ConnectExpressionsVisitor() {}
+    public ConnectExpressionsVisitor() {
+    }
 
     public ConnectExpressionsVisitor(String alias) {
         this.alias = alias;
@@ -61,7 +62,6 @@ public abstract class ConnectExpressionsVisitor implements SelectVisitor, Select
         for (SelectItem item : plainSelect.getSelectItems()) {
             item.accept(this);
         }
-
         if (itemsExpr.size() > 1) {
             BinaryExpression binExpr = createBinaryExpression();
             binExpr.setLeftExpression(itemsExpr.get(0).getExpression());
@@ -72,14 +72,11 @@ public abstract class ConnectExpressionsVisitor implements SelectVisitor, Select
                 binExpr = binExpr2;
             }
             binExpr.setRightExpression(itemsExpr.get(itemsExpr.size() - 1).getExpression());
-
             SelectItem sei = new SelectItem();
             sei.setExpression(binExpr);
-
             plainSelect.getSelectItems().clear();
             plainSelect.getSelectItems().add(sei);
         }
-
         plainSelect.getSelectItems().get(0).setAlias(new Alias(alias));
     }
 
@@ -91,7 +88,8 @@ public abstract class ConnectExpressionsVisitor implements SelectVisitor, Select
     }
 
     @Override
-    public void visit(WithItem withItem) {}
+    public void visit(WithItem withItem) {
+    }
 
     @Override
     public void visit(SelectItem selectItem) {
@@ -102,5 +100,4 @@ public abstract class ConnectExpressionsVisitor implements SelectVisitor, Select
     public void visit(Values aThis) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }

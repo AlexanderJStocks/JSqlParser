@@ -23,28 +23,39 @@ import net.sf.jsqlparser.statement.select.SetOperationList;
 import net.sf.jsqlparser.statement.select.Values;
 import net.sf.jsqlparser.statement.select.WithItem;
 import net.sf.jsqlparser.statement.update.UpdateSet;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings({"PMD.CyclomaticComplexity"})
+@SuppressWarnings({ "PMD.CyclomaticComplexity" })
 public class Insert implements Statement {
 
     private Table table;
+
     private OracleHint oracleHint = null;
+
     private ExpressionList<Column> columns;
+
     private Select select;
+
     private List<UpdateSet> duplicateUpdateSets = null;
+
     private InsertModifierPriority modifierPriority = null;
+
     private boolean modifierIgnore = false;
+
     private ReturningClause returningClause;
+
     private List<UpdateSet> setUpdateSets = null;
+
     private List<WithItem> withItemsList;
+
     private OutputClause outputClause;
+
     private InsertConflictTarget conflictTarget;
+
     private InsertConflictAction conflictAction;
 
     public List<UpdateSet> getDuplicateUpdateSets() {
@@ -162,7 +173,6 @@ public class Insert implements Statement {
         this.modifierIgnore = modifierIgnore;
     }
 
-
     @Deprecated
     public boolean isUseSet() {
         return setUpdateSets != null && !setUpdateSets.isEmpty();
@@ -203,12 +213,12 @@ public class Insert implements Statement {
     }
 
     @Override
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity" })
     public String toString() {
         StringBuilder sql = new StringBuilder();
         if (withItemsList != null && !withItemsList.isEmpty()) {
             sql.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 sql.append(withItem);
                 if (iter.hasNext()) {
@@ -226,7 +236,6 @@ public class Insert implements Statement {
         }
         sql.append("INTO ");
         sql.append(table).append(" ");
-
         if (columns != null) {
             sql.append("(");
             for (int i = 0; i < columns.size(); i++) {
@@ -238,38 +247,30 @@ public class Insert implements Statement {
             }
             sql.append(") ");
         }
-
         if (outputClause != null) {
             sql.append(outputClause);
         }
-
         if (select != null) {
             sql.append(select);
         }
-
         if (setUpdateSets != null && !setUpdateSets.isEmpty()) {
             sql.append("SET ");
             sql = UpdateSet.appendUpdateSetsTo(sql, setUpdateSets);
         }
-
         if (duplicateUpdateSets != null && !duplicateUpdateSets.isEmpty()) {
             sql.append(" ON DUPLICATE KEY UPDATE ");
             sql = UpdateSet.appendUpdateSetsTo(sql, duplicateUpdateSets);
         }
-
         if (conflictAction != null) {
             sql.append(" ON CONFLICT");
-
             if (conflictTarget != null) {
                 conflictTarget.appendTo(sql);
             }
             conflictAction.appendTo(sql);
         }
-
         if (returningClause != null) {
             returningClause.appendTo(sql);
         }
-
         return sql.toString();
     }
 
@@ -308,8 +309,7 @@ public class Insert implements Statement {
     }
 
     public Insert addColumns(Collection<Column> columns) {
-        ExpressionList<Column> collection =
-                Optional.ofNullable(getColumns()).orElseGet(ExpressionList::new);
+        ExpressionList<Column> collection = Optional.ofNullable(getColumns()).orElseGet(ExpressionList::new);
         collection.addAll(columns);
         return this.withColumns(collection);
     }

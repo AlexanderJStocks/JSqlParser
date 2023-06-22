@@ -23,7 +23,8 @@ public final class SelectUtils {
 
     private static final String NOT_SUPPORTED_YET = "Not supported yet.";
 
-    private SelectUtils() {}
+    private SelectUtils() {
+    }
 
     public static Select buildSelectFromTableAndExpressions(Table table, Expression... expr) {
         SelectItem[] list = new SelectItem[expr.length];
@@ -33,8 +34,7 @@ public final class SelectUtils {
         return buildSelectFromTableAndSelectItems(table, list);
     }
 
-    public static Select buildSelectFromTableAndExpressions(Table table, String... expr)
-            throws JSQLParserException {
+    public static Select buildSelectFromTableAndExpressions(Table table, String... expr) throws JSQLParserException {
         SelectItem[] list = new SelectItem[expr.length];
         for (int i = 0; i < expr.length; i++) {
             list[i] = new SelectItem(CCJSqlParserUtil.parseExpression(expr[i]));
@@ -42,8 +42,7 @@ public final class SelectUtils {
         return buildSelectFromTableAndSelectItems(table, list);
     }
 
-    public static Select buildSelectFromTableAndSelectItems(Table table,
-            SelectItem... selectItems) {
+    public static Select buildSelectFromTableAndSelectItems(Table table, SelectItem... selectItems) {
         PlainSelect select = new PlainSelect().addSelectItems(selectItems).withFromItem(table);
         return select;
     }

@@ -12,9 +12,13 @@ package net.sf.jsqlparser.statement.select;
 import net.sf.jsqlparser.expression.Alias;
 
 public class ParenthesedSelect extends Select implements FromItem {
+
     Alias alias;
+
     Pivot pivot;
+
     UnPivot unPivot;
+
     Select select;
 
     @Override
@@ -90,7 +94,6 @@ public class ParenthesedSelect extends Select implements FromItem {
         if (alias != null) {
             builder.append(alias);
         }
-
         if (pivot != null) {
             builder.append(" ").append(pivot);
         }

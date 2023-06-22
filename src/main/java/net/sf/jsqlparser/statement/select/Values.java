@@ -12,7 +12,6 @@ package net.sf.jsqlparser.statement.select;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
-
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -31,7 +30,6 @@ public class Values extends Select {
     public ExpressionList getExpressions() {
         return expressions;
     }
-
 
     public void setExpressions(ExpressionList expressions) {
         this.expressions = expressions;

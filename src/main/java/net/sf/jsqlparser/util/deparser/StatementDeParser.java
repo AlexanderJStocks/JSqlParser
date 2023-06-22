@@ -57,7 +57,6 @@ import net.sf.jsqlparser.statement.show.ShowTablesStatement;
 import net.sf.jsqlparser.statement.truncate.Truncate;
 import net.sf.jsqlparser.statement.update.Update;
 import net.sf.jsqlparser.statement.upsert.Upsert;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,16 +71,12 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
         this(new ExpressionDeParser(), new SelectDeParser(), buffer);
     }
 
-    public StatementDeParser(ExpressionDeParser expressionDeParser, SelectDeParser selectDeParser,
-            StringBuilder buffer) {
+    public StatementDeParser(ExpressionDeParser expressionDeParser, SelectDeParser selectDeParser, StringBuilder buffer) {
         super(buffer);
-
         this.expressionDeParser = expressionDeParser;
         this.selectDeParser = selectDeParser;
-
         this.selectDeParser.setBuffer(buffer);
         this.selectDeParser.setExpressionVisitor(expressionDeParser);
-
         this.expressionDeParser.setSelectVisitor(selectDeParser);
         this.expressionDeParser.setBuffer(buffer);
     }
@@ -124,8 +119,7 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
 
     @Override
     public void visit(Insert insert) {
-        InsertDeParser insertDeParser =
-                new InsertDeParser(expressionDeParser, selectDeParser, buffer);
+        InsertDeParser insertDeParser = new InsertDeParser(expressionDeParser, selectDeParser, buffer);
         insertDeParser.deParse(insert);
     }
 
@@ -145,18 +139,15 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
         }
         buffer.append(" ");
         buffer.append(truncate.getTable());
-
         if (truncate.getCascade()) {
             buffer.append(" CASCADE");
         }
-
     }
 
     @Override
     public void visit(Update update) {
         UpdateDeParser updateDeParser = new UpdateDeParser(expressionDeParser, buffer);
         updateDeParser.deParse(update);
-
     }
 
     public void visit(Analyze analyzer) {
@@ -183,25 +174,23 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
 
     @Override
     public void visit(SetStatement set) {
-        SetStatementDeParser setStatementDeparser =
-                new SetStatementDeParser(expressionDeParser, buffer);
+        SetStatementDeParser setStatementDeparser = new SetStatementDeParser(expressionDeParser, buffer);
         setStatementDeparser.deParse(set);
     }
 
     @Override
     public void visit(ResetStatement reset) {
-        ResetStatementDeParser setStatementDeparser =
-                new ResetStatementDeParser(expressionDeParser, buffer);
+        ResetStatementDeParser setStatementDeparser = new ResetStatementDeParser(expressionDeParser, buffer);
         setStatementDeparser.deParse(reset);
     }
 
-    @SuppressWarnings({"PMD.CyclomaticComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity" })
     @Override
     public void visit(Merge merge) {
         List<WithItem> withItemsList = merge.getWithItemsList();
         if (withItemsList != null && !withItemsList.isEmpty()) {
             buffer.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 iter.next().accept(expressionDeParser);
                 if (iter.hasNext()) {
                     buffer.append(",");
@@ -209,38 +198,30 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
                 buffer.append(" ");
             }
         }
-
         buffer.append("MERGE INTO ");
         merge.getTable().accept(selectDeParser);
-
         buffer.append(" USING ");
         merge.getFromItem().accept(selectDeParser);
-
         buffer.append(" ON (");
         merge.getOnCondition().accept(expressionDeParser);
         buffer.append(")");
-
         MergeInsert mergeInsert = merge.getMergeInsert();
         MergeUpdate mergeUpdate = merge.getMergeUpdate();
         if (merge.isInsertFirst() && mergeInsert != null) {
             deparseMergeInsert(mergeInsert);
         }
-
         if (mergeUpdate != null) {
             buffer.append(" WHEN MATCHED THEN UPDATE SET ");
             deparseUpdateSets(mergeUpdate.getUpdateSets(), buffer, expressionDeParser);
-
             if (mergeUpdate.getWhereCondition() != null) {
                 buffer.append(" WHERE ");
                 mergeUpdate.getWhereCondition().accept(expressionDeParser);
             }
-
             if (mergeUpdate.getDeleteWhereCondition() != null) {
                 buffer.append(" DELETE WHERE ");
                 mergeUpdate.getDeleteWhereCondition().accept(expressionDeParser);
             }
         }
-
         if (!merge.isInsertFirst() && mergeInsert != null) {
             deparseMergeInsert(mergeInsert);
         }
@@ -253,7 +234,6 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
         }
         buffer.append(" VALUES ");
         mergeInsert.getValues().accept(expressionDeParser);
-
         if (mergeInsert.getWhereCondition() != null) {
             buffer.append(" WHERE ");
             mergeInsert.getWhereCondition().accept(expressionDeParser);
@@ -277,8 +257,7 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
 
     @Override
     public void visit(Upsert upsert) {
-        UpsertDeParser upsertDeParser =
-                new UpsertDeParser(expressionDeParser, selectDeParser, buffer);
+        UpsertDeParser upsertDeParser = new UpsertDeParser(expressionDeParser, selectDeParser, buffer);
         upsertDeParser.deParse(upsert);
     }
 
@@ -332,8 +311,7 @@ public class StatementDeParser extends AbstractDeParser<Statement> implements St
     public void visit(ExplainStatement explain) {
         buffer.append("EXPLAIN ");
         if (explain.getOptions() != null) {
-            buffer.append(explain.getOptions().values().stream()
-                    .map(ExplainStatement.Option::formatOption).collect(Collectors.joining(" ")));
+            buffer.append(explain.getOptions().values().stream().map(ExplainStatement.Option::formatOption).collect(Collectors.joining(" ")));
             buffer.append(" ");
         }
         explain.getStatement().accept(this);

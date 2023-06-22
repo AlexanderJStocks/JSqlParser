@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.statement.insert;
 
 public enum InsertModifierPriority {
+
     LOW_PRIORITY, DELAYED, HIGH_PRIORITY, IGNORE;
 
     public final static InsertModifierPriority from(String priority) {

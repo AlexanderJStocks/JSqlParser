@@ -16,6 +16,7 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 public class SelectItem<T extends Expression> extends ASTNodeAccessImpl {
 
     private T expression;
+
     private Alias alias;
 
     public SelectItem(T expression, Alias alias) {

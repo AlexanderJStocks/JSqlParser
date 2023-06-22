@@ -23,7 +23,6 @@ import net.sf.jsqlparser.util.validation.metadata.DatabaseMetaDataValidation;
 import net.sf.jsqlparser.util.validation.metadata.MetadataContext;
 import net.sf.jsqlparser.util.validation.metadata.Named;
 import net.sf.jsqlparser.util.validation.metadata.NamedObject;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -49,8 +48,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
 
     private Map<ValidationCapability, Set<ValidationException>> errors = new HashMap<>();
 
-    private Map<Class<? extends AbstractValidator<?>>, AbstractValidator<?>> validatorForwards =
-            new HashMap<>();
+    private Map<Class<? extends AbstractValidator<?>>, AbstractValidator<?>> validatorForwards = new HashMap<>();
 
     public <T extends AbstractValidator<?>> T getValidator(Class<T> type) {
         return type.cast(validatorForwards.computeIfAbsent(type, this::newObject));
@@ -61,10 +59,8 @@ public abstract class AbstractValidator<S> implements Validator<S> {
             E e = type.cast(type.getConstructor().newInstance());
             e.setContext(context());
             return e;
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            throw new IllegalStateException(
-                    "Type " + type + " cannot be constructed by empty constructor!");
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            throw new IllegalStateException("Type " + type + " cannot be constructed by empty constructor!");
         }
     }
 
@@ -95,8 +91,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
         Map<ValidationCapability, Set<ValidationException>> map = new HashMap<>();
         map.putAll(errors);
         for (AbstractValidator<?> v : validatorForwards.values()) {
-            for (Entry<ValidationCapability, Set<ValidationException>> e : v.getValidationErrors()
-                    .entrySet()) {
+            for (Entry<ValidationCapability, Set<ValidationException>> e : v.getValidationErrors().entrySet()) {
                 Set<ValidationException> set = map.get(e.getKey());
                 if (set == null) {
                     map.put(e.getKey(), e.getValue());
@@ -123,8 +118,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
         }
     }
 
-    protected <E, V extends Validator<?>> void validateOptionalList(List<E> elementList,
-            Supplier<V> validatorSupplier, BiConsumer<E, V> elementConsumer) {
+    protected <E, V extends Validator<?>> void validateOptionalList(List<E> elementList, Supplier<V> validatorSupplier, BiConsumer<E, V> elementConsumer) {
         if (isNotEmpty(elementList)) {
             V validator = validatorSupplier.get();
             elementList.forEach(e -> elementConsumer.accept(e, validator));
@@ -140,8 +134,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
     }
 
     protected void validateOptionalExpressions(List<? extends Expression> expressions) {
-        validateOptionalList(expressions, () -> getValidator(ExpressionValidator.class),
-                (o, v) -> o.accept(v));
+        validateOptionalList(expressions, () -> getValidator(ExpressionValidator.class), (o, v) -> o.accept(v));
     }
 
     protected void validateOptionalFromItems(FromItem... fromItems) {
@@ -149,13 +142,11 @@ public abstract class AbstractValidator<S> implements Validator<S> {
     }
 
     protected void validateOptionalFromItems(List<? extends FromItem> fromItems) {
-        validateOptionalList(fromItems, () -> getValidator(SelectValidator.class),
-                this::validateOptionalFromItem);
+        validateOptionalList(fromItems, () -> getValidator(SelectValidator.class), this::validateOptionalFromItem);
     }
 
     protected void validateOptionalOrderByElements(List<OrderByElement> orderByElements) {
-        validateOptionalList(orderByElements, () -> getValidator(OrderByValidator.class),
-                (o, v) -> o.accept(v));
+        validateOptionalList(orderByElements, () -> getValidator(OrderByValidator.class), (o, v) -> o.accept(v));
     }
 
     protected void validateOptionalFromItem(FromItem fromItem) {
@@ -205,8 +196,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param fqn - fully qualified name of named object
      * @param alias
      */
-    protected void validateFeatureAndNameWithAlias(Feature feature, NamedObject namedObject,
-            String fqn, String alias) {
+    protected void validateFeatureAndNameWithAlias(Feature feature, NamedObject namedObject, String fqn, String alias) {
         for (ValidationCapability c : getCapabilities()) {
             validateFeature(c, feature);
             validateNameWithAlias(c, namedObject, fqn, alias, true);
@@ -246,8 +236,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param condition
      * @param feature
      */
-    protected void validateFeature(ValidationCapability capability, boolean condition,
-            Feature feature) {
+    protected void validateFeature(ValidationCapability capability, boolean condition, Feature feature) {
         if (condition) {
             validateFeature(capability, feature);
         }
@@ -261,8 +250,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param elements
      * @param feature
      */
-    protected void validateOptionalFeature(ValidationCapability capability, List<?> elements,
-            Feature feature) {
+    protected void validateOptionalFeature(ValidationCapability capability, List<?> elements, Feature feature) {
         validateFeature(capability, isNotEmpty(elements), feature);
     }
 
@@ -273,8 +261,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param element
      * @param feature
      */
-    protected void validateOptionalFeature(ValidationCapability capability, Object element,
-            Feature feature) {
+    protected void validateOptionalFeature(ValidationCapability capability, Object element, Feature feature) {
         validateFeature(capability, element != null, feature);
     }
 
@@ -286,8 +273,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      */
     protected void validateFeature(ValidationCapability capability, Feature feature) {
         if (capability instanceof FeatureSetValidation) {
-            capability.validate(context().put(FeatureContext.feature, feature),
-                    getMessageConsumer(capability));
+            capability.validate(context().put(FeatureContext.feature, feature), getMessageConsumer(capability));
         }
     }
 
@@ -299,8 +285,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param fqn - fully qualified name of named object
      * @param alias
      */
-    protected void validateNameWithAlias(ValidationCapability capability, NamedObject namedObject,
-            String fqn, String alias) {
+    protected void validateNameWithAlias(ValidationCapability capability, NamedObject namedObject, String fqn, String alias) {
         validateNameWithAlias(capability, namedObject, fqn, alias, true);
     }
 
@@ -309,8 +294,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param namedObject
      * @param fqn - fully qualified name of named object
      */
-    protected void validateName(ValidationCapability capability, NamedObject namedObject,
-            String fqn) {
+    protected void validateName(ValidationCapability capability, NamedObject namedObject, String fqn) {
         validateNameWithAlias(capability, namedObject, fqn, null, true);
     }
 
@@ -324,17 +308,10 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param exists - <code>true</code>, check for existence, <code>false</code>, check for
      *        non-existence
      */
-    protected void validateNameWithAlias(ValidationCapability capability, NamedObject namedObject,
-            String fqn, String alias, boolean exists, NamedObject... parents) {
+    protected void validateNameWithAlias(ValidationCapability capability, NamedObject namedObject, String fqn, String alias, boolean exists, NamedObject... parents) {
         if (capability instanceof DatabaseMetaDataValidation) {
-            capability
-                    .validate(
-                            context()
-                                    .put(MetadataContext.named,
-                                            new Named(namedObject, fqn).setAlias(alias)
-                                                    .setParents(Arrays.asList(parents))) //
-                                    .put(MetadataContext.exists, exists),
-                            getMessageConsumer(capability));
+            capability.validate(context().put(MetadataContext.named, new Named(namedObject, fqn).setAlias(alias).setParents(//
+            Arrays.asList(parents))).put(MetadataContext.exists, exists), getMessageConsumer(capability));
         }
     }
 
@@ -345,8 +322,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param exists
      * @param parents
      */
-    protected void validateName(ValidationCapability capability, NamedObject namedObject,
-            String fqn, boolean exists, NamedObject... parents) {
+    protected void validateName(ValidationCapability capability, NamedObject namedObject, String fqn, boolean exists, NamedObject... parents) {
         validateNameWithAlias(capability, namedObject, fqn, null, exists, parents);
     }
 
@@ -363,8 +339,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param name
      * @param alias
      */
-    protected void validateOptionalColumnNameWithAlias(ValidationCapability capability, String name,
-            String alias) {
+    protected void validateOptionalColumnNameWithAlias(ValidationCapability capability, String name, String alias) {
         validateOptionalName(capability, NamedObject.column, name, alias, true);
     }
 
@@ -373,8 +348,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param columnNames
      * @param parents
      */
-    protected void validateOptionalColumnNames(ValidationCapability capability,
-            List<String> columnNames, NamedObject... parents) {
+    protected void validateOptionalColumnNames(ValidationCapability capability, List<String> columnNames, NamedObject... parents) {
         validateOptionalColumnNames(capability, columnNames, true, parents);
     }
 
@@ -384,11 +358,9 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param exists
      * @param parents
      */
-    protected void validateOptionalColumnNames(ValidationCapability capability,
-            List<String> columnNames, boolean exists, NamedObject... parents) {
+    protected void validateOptionalColumnNames(ValidationCapability capability, List<String> columnNames, boolean exists, NamedObject... parents) {
         if (columnNames != null) {
-            columnNames.forEach(n -> validateOptionalName(capability, NamedObject.column, n, null,
-                    exists, parents));
+            columnNames.forEach(n -> validateOptionalName(capability, NamedObject.column, n, null, exists, parents));
         }
     }
 
@@ -399,8 +371,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param alias
      * @param parents
      */
-    protected void validateOptionalNameWithAlias(ValidationCapability capability,
-            NamedObject namedObject, String name, String alias, NamedObject... parents) {
+    protected void validateOptionalNameWithAlias(ValidationCapability capability, NamedObject namedObject, String name, String alias, NamedObject... parents) {
         validateOptionalName(capability, namedObject, name, alias, true, parents);
     }
 
@@ -410,8 +381,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param name
      * @param parents
      */
-    protected void validateOptionalName(ValidationCapability capability, NamedObject namedObject,
-            String name, NamedObject... parents) {
+    protected void validateOptionalName(ValidationCapability capability, NamedObject namedObject, String name, NamedObject... parents) {
         validateOptionalNameWithAlias(capability, namedObject, name, (String) null, parents);
     }
 
@@ -423,8 +393,7 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      * @param exists
      * @param parents
      */
-    protected void validateOptionalName(ValidationCapability capability, NamedObject namedObject,
-            String name, String alias, boolean exists, NamedObject... parents) {
+    protected void validateOptionalName(ValidationCapability capability, NamedObject namedObject, String name, String alias, boolean exists, NamedObject... parents) {
         if (name != null) {
             validateNameWithAlias(capability, namedObject, name, alias, exists, parents);
         }
@@ -437,5 +406,4 @@ public abstract class AbstractValidator<S> implements Validator<S> {
     protected boolean isNotEmpty(String c) {
         return c != null && !c.isEmpty();
     }
-
 }

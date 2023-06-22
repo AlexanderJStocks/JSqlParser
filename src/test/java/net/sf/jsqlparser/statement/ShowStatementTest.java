@@ -12,11 +12,9 @@ package net.sf.jsqlparser.statement;
 import net.sf.jsqlparser.JSQLParserException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 
 /**
- *
  * @author oshai
  */
 public class ShowStatementTest {
@@ -33,15 +31,13 @@ public class ShowStatementTest {
 
     @Test
     void testShowIndexesFromTable() throws JSQLParserException {
-        String sqlStr =
-                "show indexes from my_table";
+        String sqlStr = "show indexes from my_table";
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);
     }
 
     @Test
     void testShowCreateTable() throws JSQLParserException {
-        String sqlStr =
-                "show create table my_table";
+        String sqlStr = "show create table my_table";
         Statement statement = assertSqlCanBeParsedAndDeparsed(sqlStr, true);
         Assertions.assertTrue(statement instanceof UnsupportedStatement);
     }

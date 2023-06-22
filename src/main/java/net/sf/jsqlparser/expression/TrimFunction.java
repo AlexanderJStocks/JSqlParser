@@ -12,20 +12,21 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class TrimFunction extends ASTNodeAccessImpl implements Expression {
+
     public enum TrimSpecification {
+
         LEADING, TRAILING, BOTH
     }
 
     private TrimSpecification trimSpecification;
+
     private Expression expression;
+
     private Expression fromExpression;
+
     private boolean isUsingFromKeyword;
 
-    public TrimFunction(TrimSpecification trimSpecification,
-            Expression expression,
-            Expression fromExpression,
-            boolean isUsingFromKeyword) {
-
+    public TrimFunction(TrimSpecification trimSpecification, Expression expression, Expression fromExpression, boolean isUsingFromKeyword) {
         this.trimSpecification = trimSpecification;
         this.expression = expression;
         this.fromExpression = fromExpression;
@@ -98,22 +99,16 @@ public class TrimFunction extends ASTNodeAccessImpl implements Expression {
 
     public StringBuilder appendTo(StringBuilder builder) {
         builder.append("Trim(");
-
         if (trimSpecification != null) {
             builder.append(" ").append(trimSpecification.name());
         }
-
         if (expression != null) {
             builder.append(" ").append(expression);
         }
-
         if (fromExpression != null) {
-            builder
-                    .append(isUsingFromKeyword ? " FROM " : ", ")
-                    .append(fromExpression);
+            builder.append(isUsingFromKeyword ? " FROM " : ", ").append(fromExpression);
         }
         builder.append(" )");
-
         return builder;
     }
 

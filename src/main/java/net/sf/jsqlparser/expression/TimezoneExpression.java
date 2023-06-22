@@ -11,12 +11,12 @@ package net.sf.jsqlparser.expression;
 
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-
 import java.util.List;
 
 public class TimezoneExpression extends ASTNodeAccessImpl implements Expression {
 
     private Expression leftExpression;
+
     private ExpressionList<Expression> timezoneExpressions = new ExpressionList<>();
 
     public Expression getLeftExpression() {
@@ -46,7 +46,6 @@ public class TimezoneExpression extends ASTNodeAccessImpl implements Expression 
         for (Expression expr : timezoneExpressions) {
             returnValue += " AT TIME ZONE " + expr.toString();
         }
-
         return returnValue;
     }
 }

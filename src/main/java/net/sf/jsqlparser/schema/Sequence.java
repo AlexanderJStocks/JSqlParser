@@ -5,7 +5,6 @@
 package net.sf.jsqlparser.schema;
 
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,14 +17,19 @@ import java.util.Optional;
 public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
 
     private static final int NAME_IDX = 0;
+
     private static final int SCHEMA_IDX = 1;
+
     private static final int DATABASE_IDX = 2;
+
     private static final int SERVER_IDX = 3;
+
     private List<String> partItems = new ArrayList<>();
 
     private List<Parameter> parameters;
 
-    public Sequence() {}
+    public Sequence() {
+    }
 
     public Sequence(List<String> partItems) {
         this.partItems = new ArrayList<>(partItems);
@@ -101,7 +105,6 @@ public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
     @Override
     public String getFullyQualifiedName() {
         StringBuilder fqn = new StringBuilder();
-
         for (int i = partItems.size() - 1; i >= 0; i--) {
             String part = partItems.get(i);
             if (part == null) {
@@ -112,7 +115,6 @@ public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
                 fqn.append(".");
             }
         }
-
         return fqn.toString();
     }
 
@@ -148,7 +150,24 @@ public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
      * The available parameters to a sequence
      */
     public enum ParameterType {
-        INCREMENT_BY, START_WITH, RESTART_WITH, MAXVALUE, NOMAXVALUE, MINVALUE, NOMINVALUE, CYCLE, NOCYCLE, CACHE, NOCACHE, ORDER, NOORDER, KEEP, NOKEEP, SESSION, GLOBAL;
+
+        INCREMENT_BY,
+        START_WITH,
+        RESTART_WITH,
+        MAXVALUE,
+        NOMAXVALUE,
+        MINVALUE,
+        NOMINVALUE,
+        CYCLE,
+        NOCYCLE,
+        CACHE,
+        NOCACHE,
+        ORDER,
+        NOORDER,
+        KEEP,
+        NOKEEP,
+        SESSION,
+        GLOBAL;
 
         public static ParameterType from(String type) {
             return Enum.valueOf(ParameterType.class, type.toUpperCase());
@@ -161,6 +180,7 @@ public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
     public static class Parameter {
 
         private final ParameterType option;
+
         private Long value;
 
         public Parameter(ParameterType option) {
@@ -176,7 +196,7 @@ public class Sequence extends ASTNodeAccessImpl implements MultiPartName {
         }
 
         public String formatParameter() {
-            switch (option) {
+            switch(option) {
                 case INCREMENT_BY:
                     return prefix("INCREMENT BY");
                 case START_WITH:

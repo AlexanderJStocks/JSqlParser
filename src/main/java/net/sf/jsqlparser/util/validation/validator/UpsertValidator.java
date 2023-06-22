@@ -47,5 +47,4 @@ public class UpsertValidator extends AbstractValidator<Upsert> {
             }
         }
     }
-
 }

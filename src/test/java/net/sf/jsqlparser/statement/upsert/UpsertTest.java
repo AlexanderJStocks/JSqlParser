@@ -18,9 +18,7 @@ import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import java.io.StringReader;
-
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,7 +37,6 @@ public class UpsertTest {
         assertEquals(2, upsert.getColumns().size());
         assertEquals("NAME", upsert.getColumns().get(0).getColumnName());
         assertEquals("ID", upsert.getColumns().get(1).getColumnName());
-
         ExpressionList expressions = upsert.getValues().getExpressions();
         assertEquals(2, expressions.size());
         assertEquals("foo", ((StringValue) expressions.get(0)).getValue());
@@ -50,30 +47,25 @@ public class UpsertTest {
 
     @Test
     public void testUpsertDuplicate() throws JSQLParserException {
-        String statement =
-                "UPSERT INTO TEST (ID, COUNTER) VALUES (123, 0) ON DUPLICATE KEY UPDATE COUNTER = COUNTER + 1";
+        String statement = "UPSERT INTO TEST (ID, COUNTER) VALUES (123, 0) ON DUPLICATE KEY UPDATE COUNTER = COUNTER + 1";
         Upsert upsert = (Upsert) parserManager.parse(new StringReader(statement));
         assertEquals("TEST", upsert.getTable().getName());
         assertEquals(2, upsert.getColumns().size());
         assertEquals("ID", upsert.getColumns().get(0).getColumnName());
         assertEquals("COUNTER", upsert.getColumns().get(1).getColumnName());
-
         ExpressionList<?> expressions = upsert.getValues().getExpressions();
         assertEquals(2, expressions.size());
         assertEquals(123, ((LongValue) expressions.get(0)).getValue());
         assertEquals(0, ((LongValue) expressions.get(1)).getValue());
         assertEquals(1, upsert.getDuplicateUpdateSets().size());
-        assertEquals("COUNTER",
-                upsert.getDuplicateUpdateSets().get(0).getColumns().get(0).getColumnName());
-        assertEquals("COUNTER + 1",
-                upsert.getDuplicateUpdateSets().get(0).getValues().get(0).toString());
+        assertEquals("COUNTER", upsert.getDuplicateUpdateSets().get(0).getColumns().get(0).getColumnName());
+        assertEquals("COUNTER + 1", upsert.getDuplicateUpdateSets().get(0).getValues().get(0).toString());
         assertEquals(statement, "" + upsert);
     }
 
     @Test
     public void testUpsertSelect() throws JSQLParserException {
-        String statement =
-                "UPSERT INTO test.targetTable (col1, col2) SELECT * FROM test.sourceTable";
+        String statement = "UPSERT INTO test.targetTable (col1, col2) SELECT * FROM test.sourceTable";
         Upsert upsert = (Upsert) parserManager.parse(new StringReader(statement));
         assertEquals("test.targetTable", upsert.getTable().getFullyQualifiedName());
         assertEquals(2, upsert.getColumns().size());
@@ -81,8 +73,7 @@ public class UpsertTest {
         assertEquals("col2", upsert.getColumns().get(1).getColumnName());
         assertNull(upsert.getExpressions());
         assertNotNull(upsert.getSelect());
-        assertEquals("test.sourceTable",
-                ((Table) ((PlainSelect) upsert.getSelect()).getFromItem()).getFullyQualifiedName());
+        assertEquals("test.sourceTable", ((Table) ((PlainSelect) upsert.getSelect()).getFromItem()).getFullyQualifiedName());
         assertNull(upsert.getDuplicateUpdateSets());
         assertEquals(statement, "" + upsert);
     }
@@ -92,7 +83,6 @@ public class UpsertTest {
         String statement = "UPSERT INTO TEST VALUES ('foo', 'bar', 3)";
         Upsert upsert = (Upsert) parserManager.parse(new StringReader(statement));
         assertEquals("TEST", upsert.getTable().getName());
-
         ExpressionList expressions = upsert.getValues().getExpressions();
         assertEquals(3, expressions.size());
         assertEquals("foo", ((StringValue) expressions.get(0)).getValue());
@@ -104,17 +94,15 @@ public class UpsertTest {
 
     @Test
     public void testUpsertMultiRowValue() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (col1, col2) VALUES (a, b), (d, e)",
-                true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (col1, col2) VALUES (a, b), (d, e)", true);
     }
 
     @Test
     @Disabled
-    /* not the job of the parser to validate this, it even may be valid eventually */
-    public void testUpsertMultiRowValueDifferent() throws JSQLParserException {
+    public /* not the job of the parser to validate this, it even may be valid eventually */
+    void testUpsertMultiRowValueDifferent() throws JSQLParserException {
         try {
-            assertSqlCanBeParsedAndDeparsed(
-                    "UPSERT INTO mytable (col1, col2) VALUES (a, b), (d, e, c)");
+            assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (col1, col2) VALUES (a, b), (d, e, c)");
         } catch (Exception e) {
             return;
         }
@@ -123,27 +111,19 @@ public class UpsertTest {
 
     @Test
     public void testSimpleUpsert() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO example (num, name, address, tel) VALUES (1, 'name', 'test ', '1234-1234')",
-                true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO example (num, name, address, tel) VALUES (1, 'name', 'test ', '1234-1234')", true);
     }
 
     @Test
     public void testUpsertHasSelect() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO mytable (mycolumn) SELECT mycolumn FROM mytable", true);
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO mytable (mycolumn) (SELECT mycolumn FROM mytable)", true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (mycolumn) SELECT mycolumn FROM mytable", true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (mycolumn) (SELECT mycolumn FROM mytable)", true);
     }
 
     @Test
     public void testUpsertWithSelect() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO mytable (mycolumn) WITH a AS (SELECT mycolumn FROM mytable) SELECT mycolumn FROM a",
-                true);
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO mytable (mycolumn) (WITH a AS (SELECT mycolumn FROM mytable) SELECT mycolumn FROM a)",
-                true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (mycolumn) WITH a AS (SELECT mycolumn FROM mytable) SELECT mycolumn FROM a", true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO mytable (mycolumn) (WITH a AS (SELECT mycolumn FROM mytable) SELECT mycolumn FROM a)", true);
     }
 
     @Test
@@ -168,9 +148,6 @@ public class UpsertTest {
 
     @Test
     public void testDuplicateKey() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed(
-                "UPSERT INTO Users0 (UserId, Key, Value) VALUES (51311, 'T_211', 18) ON DUPLICATE KEY UPDATE Value = 18",
-                true);
+        assertSqlCanBeParsedAndDeparsed("UPSERT INTO Users0 (UserId, Key, Value) VALUES (51311, 'T_211', 18) ON DUPLICATE KEY UPDATE Value = 18", true);
     }
-
 }

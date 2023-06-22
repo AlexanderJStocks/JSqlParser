@@ -10,7 +10,6 @@
 package net.sf.jsqlparser.expression.operators.relational;
 
 import net.sf.jsqlparser.expression.Expression;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,6 +20,7 @@ import java.util.Optional;
  * A list of named expressions, as in as in select substr('xyzzy' from 2 for 3)
  */
 public class NamedExpressionList<T extends Expression> extends ExpressionList<T> {
+
     private List<String> names;
 
     public List<String> getNames() {
@@ -33,7 +33,6 @@ public class NamedExpressionList<T extends Expression> extends ExpressionList<T>
 
     @Override
     public String toString() {
-
         StringBuilder ret = new StringBuilder();
         ret.append("(");
         for (int i = 0; i < size(); i++) {
@@ -47,7 +46,6 @@ public class NamedExpressionList<T extends Expression> extends ExpressionList<T>
             }
         }
         ret.append(")");
-
         return ret.toString();
     }
 

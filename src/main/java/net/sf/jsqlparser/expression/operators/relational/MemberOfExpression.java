@@ -16,7 +16,9 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 public class MemberOfExpression extends ASTNodeAccessImpl implements Expression {
 
     Expression leftExpression;
+
     Expression rightExpression;
+
     boolean isNot;
 
     public MemberOfExpression(Expression leftExpression, Expression rightExpression) {

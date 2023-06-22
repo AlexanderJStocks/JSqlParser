@@ -14,7 +14,17 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 public class KSQLWindow extends ASTNodeAccessImpl {
 
     public enum TimeUnit {
-        DAY, HOUR, MINUTE, SECOND, MILLISECOND, DAYS, HOURS, MINUTES, SECONDS, MILLISECONDS;
+
+        DAY,
+        HOUR,
+        MINUTE,
+        SECOND,
+        MILLISECOND,
+        DAYS,
+        HOURS,
+        MINUTES,
+        SECONDS,
+        MILLISECONDS;
 
         public static TimeUnit from(String unit) {
             return Enum.valueOf(TimeUnit.class, unit.toUpperCase());
@@ -22,6 +32,7 @@ public class KSQLWindow extends ASTNodeAccessImpl {
     }
 
     public enum WindowType {
+
         HOPPING("HOPPING"), SESSION("SESSION"), TUMBLING("TUMBLING");
 
         private String windowType;
@@ -40,11 +51,17 @@ public class KSQLWindow extends ASTNodeAccessImpl {
     }
 
     private boolean hopping;
+
     private boolean tumbling;
+
     private boolean session;
+
     private long sizeDuration;
+
     private TimeUnit sizeTimeUnit;
+
     private long advanceDuration;
+
     private TimeUnit advanceTimeUnit;
 
     public boolean isHoppingWindow() {
@@ -103,13 +120,13 @@ public class KSQLWindow extends ASTNodeAccessImpl {
         this.advanceTimeUnit = advanceTimeUnit;
     }
 
-    public KSQLWindow() {}
+    public KSQLWindow() {
+    }
 
     @Override
     public String toString() {
         if (isHoppingWindow()) {
-            return "HOPPING (" + "SIZE " + sizeDuration + " " + sizeTimeUnit + ", " +
-                    "ADVANCE BY " + advanceDuration + " " + advanceTimeUnit + ")";
+            return "HOPPING (" + "SIZE " + sizeDuration + " " + sizeTimeUnit + ", " + "ADVANCE BY " + advanceDuration + " " + advanceTimeUnit + ")";
         } else if (isSessionWindow()) {
             return "SESSION (" + sizeDuration + " " + sizeTimeUnit + ")";
         } else {
@@ -136,5 +153,4 @@ public class KSQLWindow extends ASTNodeAccessImpl {
         this.setAdvanceTimeUnit(advanceTimeUnit);
         return this;
     }
-
 }

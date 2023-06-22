@@ -14,7 +14,6 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,12 +22,19 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class Select extends ASTNodeAccessImpl implements Statement, Expression {
+
     List<WithItem> withItemsList;
+
     Limit limitBy;
+
     Limit limit;
+
     Offset offset;
+
     Fetch fetch;
+
     WithIsolation isolation;
+
     boolean oracleSiblings = false;
 
     ForClause forClause = null;
@@ -39,8 +45,7 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
         return orderByToString(false, orderByElements);
     }
 
-    public static String orderByToString(boolean oracleSiblings,
-            List<OrderByElement> orderByElements) {
+    public static String orderByToString(boolean oracleSiblings, List<OrderByElement> orderByElements) {
         return getFormattedList(orderByElements, oracleSiblings ? "ORDER SIBLINGS BY" : "ORDER BY");
     }
 
@@ -48,10 +53,8 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
         return getFormattedList(list, expression, true, false);
     }
 
-    public static String getFormattedList(List<?> list, String expression, boolean useComma,
-            boolean useBrackets) {
+    public static String getFormattedList(List<?> list, String expression, boolean useComma, boolean useBrackets) {
         String sql = getStringList(list, useComma, useBrackets);
-
         if (sql.length() > 0) {
             if (expression.length() > 0) {
                 sql = " " + expression + " " + sql;
@@ -59,7 +62,6 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
                 sql = " " + sql;
             }
         }
-
         return sql;
     }
 
@@ -99,20 +101,16 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
      * @param useBrackets true if the list has to be enclosed in brackets
      * @return comma separated list of the elements in the list
      */
-    public static StringBuilder appendStringListTo(StringBuilder builder, List<?> list,
-            boolean useComma, boolean useBrackets) {
+    public static StringBuilder appendStringListTo(StringBuilder builder, List<?> list, boolean useComma, boolean useBrackets) {
         if (list != null) {
             String comma = useComma ? ", " : " ";
-
             if (useBrackets) {
                 builder.append("(");
             }
-
             int size = list.size();
             for (int i = 0; i < size; i++) {
                 builder.append(list.get(i)).append(i < size - 1 ? comma : "");
             }
-
             if (useBrackets) {
                 builder.append(")");
             }
@@ -134,8 +132,7 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
     }
 
     public Select addWithItemsList(Collection<? extends WithItem> withItemsList) {
-        List<WithItem> collection =
-                Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
+        List<WithItem> collection = Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
         collection.addAll(withItemsList);
         return this.withWithItemsList(collection);
     }
@@ -180,8 +177,7 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
     }
 
     public Select addOrderByElements(Collection<? extends OrderByElement> orderByElements) {
-        List<OrderByElement> collection =
-                Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
+        List<OrderByElement> collection = Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
         collection.addAll(orderByElements);
         return this.withOrderByElements(collection);
     }
@@ -257,11 +253,11 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
 
     public abstract StringBuilder appendSelectBodyTo(StringBuilder builder);
 
-    @SuppressWarnings({"PMD.CyclomaticComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity" })
     public StringBuilder appendTo(StringBuilder builder) {
         if (withItemsList != null && !withItemsList.isEmpty()) {
             builder.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 builder.append(withItem);
                 if (iter.hasNext()) {
@@ -270,15 +266,11 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
                 builder.append(" ");
             }
         }
-
         appendSelectBodyTo(builder);
-
         if (forClause != null) {
             forClause.appendTo(builder);
         }
-
         builder.append(orderByToString(oracleSiblings, orderByElements));
-
         if (limitBy != null) {
             builder.append(limitBy);
         }
@@ -294,7 +286,6 @@ public abstract class Select extends ASTNodeAccessImpl implements Statement, Exp
         if (isolation != null) {
             builder.append(isolation);
         }
-
         return builder;
     }
 

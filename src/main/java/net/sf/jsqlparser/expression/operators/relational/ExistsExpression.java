@@ -16,6 +16,7 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 public class ExistsExpression extends ASTNodeAccessImpl implements Expression {
 
     protected Expression rightExpression;
+
     protected boolean not = false;
 
     public Expression getRightExpression() {

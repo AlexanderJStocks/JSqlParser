@@ -13,7 +13,6 @@ import net.sf.jsqlparser.expression.ArrayConstructor;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
-
 import java.util.List;
 
 /**
@@ -22,10 +21,13 @@ import java.util.List;
 public class Column extends ASTNodeAccessImpl implements Expression, MultiPartName {
 
     private Table table;
+
     private String columnName;
+
     private ArrayConstructor arrayConstructor;
 
-    public Column() {}
+    public Column() {
+    }
 
     public Column(Table table, String columnName) {
         setTable(table);
@@ -33,8 +35,7 @@ public class Column extends ASTNodeAccessImpl implements Expression, MultiPartNa
     }
 
     public Column(List<String> nameParts) {
-        this(nameParts.size() > 1 ? new Table(nameParts.subList(0, nameParts.size() - 1)) : null,
-                nameParts.get(nameParts.size() - 1));
+        this(nameParts.size() > 1 ? new Table(nameParts.subList(0, nameParts.size() - 1)) : null, nameParts.get(nameParts.size() - 1));
     }
 
     public Column(String columnName) {
@@ -56,19 +57,19 @@ public class Column extends ASTNodeAccessImpl implements Expression, MultiPartNa
      * <p>
      * The inference is based only on local information, and not on the whole SQL command. For
      * example, consider the following query: <blockquote>
-     * 
+     *
      * <pre>
      *  SELECT x FROM Foo
      * </pre>
-     * 
+     *
      * </blockquote> Given the {@code Column} called {@code x}, this method would return
      * {@code null}, and not the info about the table {@code Foo}. On the other hand, consider:
      * <blockquote>
-     * 
+     *
      * <pre>
      *  SELECT t.x FROM Foo t
      * </pre>
-     * 
+     *
      * </blockquote> Here, we will get a {@code Table} object for a table called {@code t}. But
      * because the inference is local, such object will not know that {@code t} is just an alias for
      * {@code Foo}.
@@ -99,7 +100,6 @@ public class Column extends ASTNodeAccessImpl implements Expression, MultiPartNa
 
     public String getFullyQualifiedName(boolean aliases) {
         StringBuilder fqn = new StringBuilder();
-
         if (table != null) {
             if (table.getAlias() != null && aliases) {
                 fqn.append(table.getAlias().getName());
@@ -113,11 +113,9 @@ public class Column extends ASTNodeAccessImpl implements Expression, MultiPartNa
         if (columnName != null) {
             fqn.append(columnName);
         }
-
         if (arrayConstructor != null) {
             fqn.append(arrayConstructor);
         }
-
         return fqn.toString();
     }
 

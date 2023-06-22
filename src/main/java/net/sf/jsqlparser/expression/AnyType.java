@@ -10,6 +10,7 @@
 package net.sf.jsqlparser.expression;
 
 public enum AnyType {
+
     ANY, SOME, ALL;
 
     public static AnyType from(String type) {
