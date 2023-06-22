@@ -35,7 +35,7 @@ public class GroupByElement implements Serializable {
     }
 
     public ExpressionList getGroupByExpressionList() {
-        return groupByExpressions;
+        return groupByExpressions();
     }
 
     public void setGroupByExpressions(ExpressionList groupByExpressions) {
@@ -44,7 +44,7 @@ public class GroupByElement implements Serializable {
 
     @Deprecated
     public ExpressionList getGroupByExpressions() {
-        return groupByExpressions;
+        return groupByExpressions();
     }
 
     @Deprecated
@@ -119,5 +119,9 @@ public class GroupByElement implements Serializable {
         List collection = Optional.ofNullable(getGroupingSets()).orElseGet(ArrayList::new);
         collection.addAll(groupingSets);
         return this.withGroupingSets(collection);
+    }
+
+    private ExpressionList groupByExpressions() {
+        return groupByExpressions;
     }
 }

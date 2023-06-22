@@ -283,7 +283,7 @@ public class Join extends ASTNodeAccessImpl {
      * Returns the right item of the join
      */
     public FromItem getRightItem() {
-        return fromItem;
+        return retrieveFromItem();
     }
 
     @Deprecated
@@ -297,7 +297,7 @@ public class Join extends ASTNodeAccessImpl {
     }
 
     public FromItem getFromItem() {
-        return fromItem;
+        return retrieveFromItem();
     }
 
     public Join setFromItem(FromItem fromItem) {
@@ -437,5 +437,9 @@ public class Join extends ASTNodeAccessImpl {
         List<Column> collection = Optional.ofNullable(getUsingColumns()).orElseGet(ArrayList::new);
         collection.addAll(usingColumns);
         return this.withUsingColumns(collection);
+    }
+
+    private FromItem retrieveFromItem() {
+        return fromItem;
     }
 }

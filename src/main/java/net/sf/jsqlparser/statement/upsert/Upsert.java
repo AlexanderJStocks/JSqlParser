@@ -108,7 +108,7 @@ public class Upsert implements Statement {
     }
 
     public ExpressionList getExpressions() {
-        return expressions;
+        return returnExpressions();
     }
 
     public void setExpressions(ExpressionList list) {
@@ -117,7 +117,7 @@ public class Upsert implements Statement {
 
     @Deprecated
     public ExpressionList<?> getSetExpressions() {
-        return expressions;
+        return returnExpressions();
     }
 
     public Select getSelect() {
@@ -218,5 +218,9 @@ public class Upsert implements Statement {
         ExpressionList<Column> collection = Optional.ofNullable(getColumns()).orElseGet(ExpressionList::new);
         collection.addAll(columns);
         return this.withColumns(collection);
+    }
+
+    private ExpressionList returnExpressions() {
+        return expressions;
     }
 }

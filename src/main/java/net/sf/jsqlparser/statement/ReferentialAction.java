@@ -40,7 +40,7 @@ public class ReferentialAction implements Serializable {
     }
 
     public Action getAction() {
-        return action;
+        return getResponse();
     }
 
     public void setAction(Action action) {
@@ -120,7 +120,11 @@ public class ReferentialAction implements Serializable {
         }
 
         public String getAction() {
-            return action;
+            return getResponse();
         }
+    }
+
+    private Action getResponse() {
+        return action;
     }
 }

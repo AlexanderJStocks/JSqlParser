@@ -349,7 +349,7 @@ public class CreateTableTest {
 
     @Test
     public void testCreateUnionIssue() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed("CREATE TABLE temp.abc AS (SELECT c FROM t1) UNION (SELECT c FROM t2)");
+        parseSqlUnionDeparse();
     }
 
     @Test
@@ -635,7 +635,7 @@ public class CreateTableTest {
 
     @Test
     public void testCreateUnionIssue1309() throws JSQLParserException {
-        assertSqlCanBeParsedAndDeparsed("CREATE TABLE temp.abc AS (SELECT c FROM t1) UNION (SELECT c FROM t2)");
+        parseSqlUnionDeparse();
     }
 
     @Test
@@ -676,5 +676,9 @@ public class CreateTableTest {
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);
         sqlStr = "CREATE TABLE \"public\".\"device_bayonet_copy1\" ( " + "\"id\" int8 NOT NULL" + ", \"device_code\" varchar(128) COLLATE \"pg_catalog\".\"default\"" + ", \"longitude_latitude\" varchar(128) COLLATE \"pg_catalog\".\"default\"" + ", \"longitude_latitude_gis\" \"public\".\"geometry\"" + ", \"direction\" varchar(128) COLLATE \"pg_catalog\".\"default\"" + ", \"brand\" varchar(128) COLLATE \"pg_catalog\".\"default\"" + ", \"test\" \"information_schema\".\"time_stamp\"" + ", CONSTRAINT \"device_bayonet_copy1_pkey\" PRIMARY KEY (\"id\") " + ")";
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);
+    }
+
+    private void parseSqlUnionDeparse() throws JSQLParserException {
+        assertSqlCanBeParsedAndDeparsed("CREATE TABLE temp.abc AS (SELECT c FROM t1) UNION (SELECT c FROM t2)");
     }
 }

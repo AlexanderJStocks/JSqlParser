@@ -225,7 +225,7 @@ public class Update implements Statement {
 
     @Deprecated
     public boolean isUseColumnsBrackets() {
-        return false;
+        return fakeMethod();
     }
 
     @Deprecated
@@ -234,7 +234,7 @@ public class Update implements Statement {
 
     @Deprecated
     public boolean isUseSelect() {
-        return false;
+        return fakeMethod();
     }
 
     @Deprecated
@@ -482,5 +482,9 @@ public class Update implements Statement {
 
     public <E extends FromItem> E getFromItem(Class<E> type) {
         return type.cast(getFromItem());
+    }
+
+    private boolean fakeMethod() {
+        return false;
     }
 }

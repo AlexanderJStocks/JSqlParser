@@ -40,9 +40,7 @@ public class ExpressionVisitorAdapterTest {
 
             @Override
             public void visit(InExpression expr) {
-                super.visit(expr);
-                exprList.add(expr.getLeftExpression());
-                exprList.add(expr.getRightExpression());
+                visitAndAddExprList(expr);
             }
         });
         assertTrue(exprList.get(0) instanceof Column);
@@ -58,9 +56,7 @@ public class ExpressionVisitorAdapterTest {
 
             @Override
             public void visit(InExpression expr) {
-                super.visit(expr);
-                exprList.add(expr.getLeftExpression());
-                exprList.add(expr.getRightExpression());
+                visitAndAddExprList(expr);
             }
         });
         assertTrue(exprList.get(0) instanceof ExpressionList<?>);
@@ -120,8 +116,7 @@ public class ExpressionVisitorAdapterTest {
 
             @Override
             public void visit(Column column) {
-                super.visit(column);
-                columnList.add(column.getColumnName());
+                visitAndAddColumnToList(column);
             }
         });
         assertEquals(1, columnList.size());
@@ -137,8 +132,7 @@ public class ExpressionVisitorAdapterTest {
 
             @Override
             public void visit(Column column) {
-                super.visit(column);
-                columnList.add(column.getColumnName());
+                visitAndAddColumnToList(column);
             }
         });
         assertEquals(1, columnList.size());
@@ -217,5 +211,16 @@ public class ExpressionVisitorAdapterTest {
     public void testRowConstructor() throws JSQLParserException {
         ExpressionVisitorAdapter adapter = new ExpressionVisitorAdapter();
         CCJSqlParserUtil.parseExpression("CAST(ROW(dataid, value, calcMark) AS ROW(datapointid CHAR, value CHAR, calcMark CHAR))").accept(adapter);
+    }
+
+    private void visitAndAddExprList(InExpression expr) {
+        super.visit(expr);
+        exprList.add(expr.getLeftExpression());
+        exprList.add(expr.getRightExpression());
+    }
+
+    private void visitAndAddColumnToList(Column column) {
+        super.visit(column);
+        columnList.add(column.getColumnName());
     }
 }

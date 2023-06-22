@@ -171,7 +171,7 @@ public class SelectTest {
 
             @Override
             public void execute() throws Throwable {
-                parserManager.parse(new StringReader(statement));
+                parseStatementFromString();
             }
         });
     }
@@ -192,7 +192,7 @@ public class SelectTest {
 
             @Override
             public void execute() throws Throwable {
-                parserManager.parse(new StringReader(statement));
+                parseStatementFromString();
             }
         });
     }
@@ -2714,13 +2714,13 @@ public class SelectTest {
     @ParameterizedTest
     @ValueSource(strings = { "SELECT 'a'", "SELECT ''''", "SELECT '\\''", "SELECT 'ab''ab'", "SELECT 'ab\\'ab'" })
     public void testIssue167_singleQuoteEscape(String sqlStr) throws JSQLParserException {
-        TestUtils.assertSqlCanBeParsedAndDeparsed(sqlStr, true, parser -> parser.withBackslashEscapeCharacter(true));
+        assertBackslashEscapeCharacter(sqlStr);
     }
 
     @ParameterizedTest
     @ValueSource(strings = { "SELECT '\\'''", "SELECT '\\\\\\''" })
     public void testIssue167_singleQuoteEscape2(String sqlStr) throws JSQLParserException {
-        TestUtils.assertSqlCanBeParsedAndDeparsed(sqlStr, true, parser -> parser.withBackslashEscapeCharacter(true));
+        assertBackslashEscapeCharacter(sqlStr);
     }
 
     @Test
@@ -3665,7 +3665,7 @@ public class SelectTest {
 
             @Override
             public void visit(PlainSelect plainSelect) {
-                list.addAll(plainSelect.getSelectItems());
+                addAllSelectItems(plainSelect);
             }
         });
         assertEquals(1, list.size());
@@ -3691,7 +3691,7 @@ public class SelectTest {
 
             @Override
             public void visit(PlainSelect plainSelect) {
-                list.addAll(plainSelect.getSelectItems());
+                addAllSelectItems(plainSelect);
             }
         });
         assertEquals(1, list.size());
@@ -4721,5 +4721,17 @@ public class SelectTest {
     public void testNotIsNullInFilter() throws JSQLParserException {
         String stmt = "SELECT count(*) FILTER (WHERE i NOT ISNULL) AS filtered FROM tasks";
         assertSqlCanBeParsedAndDeparsed(stmt);
+    }
+
+    private void parseStatementFromString() throws Throwable {
+        parserManager.parse(new StringReader(statement));
+    }
+
+    private void assertBackslashEscapeCharacter(String sqlStr) throws JSQLParserException {
+        TestUtils.assertSqlCanBeParsedAndDeparsed(sqlStr, true, parser -> parser.withBackslashEscapeCharacter(true));
+    }
+
+    private void addAllSelectItems(PlainSelect plainSelect) {
+        list.addAll(plainSelect.getSelectItems());
     }
 }

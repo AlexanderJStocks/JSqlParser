@@ -233,7 +233,7 @@ public class SimpleCharStream {
      */
     @Deprecated
     public int getColumn() {
-        return bufcolumn[bufpos];
+        return getColumnValue();
     }
 
     /**
@@ -242,21 +242,21 @@ public class SimpleCharStream {
      */
     @Deprecated
     public int getLine() {
-        return bufline[bufpos];
+        return bufferLinePosition();
     }
 
     /**
      * @return get token end column number.
      */
     public int getEndColumn() {
-        return bufcolumn[bufpos];
+        return getColumnValue();
     }
 
     /**
      * @return get token end line number.
      */
     public int getEndLine() {
-        return bufline[bufpos];
+        return bufferLinePosition();
     }
 
     /**
@@ -477,6 +477,14 @@ public class SimpleCharStream {
 
     void setTrackLineColumn(boolean tlc) {
         trackLineColumn = tlc;
+    }
+
+    private int getColumnValue() {
+        return bufcolumn[bufpos];
+    }
+
+    private int bufferLinePosition() {
+        return bufline[bufpos];
     }
 }
 /* JavaCC - OriginalChecksum=47e65cd0a1ed785f7a51c9e0c60893c9 (do not edit this line) */
