@@ -34,8 +34,9 @@ public class FeaturesAllowed implements FeatureSetValidation, ModifyableFeatureS
 
     private static final String SEPERATOR = " + ";
 
-    public static final FeaturesAllowed JDBC = new FeaturesAllowed("jdbc", // always allowed if used with jdbc
-    Feature.jdbcParameter, Feature.jdbcNamedParameter).unmodifyable();
+    public static final FeaturesAllowed JDBC = new // always allowed if used with jdbc
+    FeaturesAllowed(// always allowed if used with jdbc
+    "jdbc", Feature.jdbcParameter, Feature.jdbcNamedParameter).unmodifyable();
 
     public static final FeaturesAllowed EXPRESSIONS = new FeaturesAllowed("EXPRESSIONS", Feature.exprLike, Feature.exprSimilarTo);
 
@@ -44,8 +45,9 @@ public class FeaturesAllowed implements FeatureSetValidation, ModifyableFeatureS
      * {@link Feature#selectInto}, but jdbc-features like
      * {@link Feature#jdbcParameter} and {@link Feature#jdbcNamedParameter}
      */
-    public static final FeaturesAllowed SELECT = new FeaturesAllowed("SELECT", // select features
-    Feature.select, Feature.selectGroupBy, Feature.selectHaving, Feature.join, Feature.joinOuterSimple, Feature.joinSimple, Feature.joinRight, Feature.joinNatural, Feature.joinFull, Feature.joinLeft, Feature.joinCross, Feature.joinOuter, Feature.joinSemi, Feature.joinInner, Feature.joinStraight, Feature.joinApply, Feature.joinWindow, Feature.joinUsingColumns, Feature.limit, Feature.limitNull, Feature.limitAll, Feature.limitOffset, Feature.offset, Feature.offsetParam, Feature.fetch, Feature.fetchFirst, Feature.fetchNext, Feature.skip, Feature.first, Feature.top, Feature.optimizeFor, Feature.selectUnique, Feature.distinct, Feature.distinctOn, Feature.orderBy, Feature.orderByNullOrdering, Feature.function).unmodifyable();
+    public static final FeaturesAllowed SELECT = new // select features
+    FeaturesAllowed(// select features
+    "SELECT", Feature.select, Feature.selectGroupBy, Feature.selectHaving, Feature.join, Feature.joinOuterSimple, Feature.joinSimple, Feature.joinRight, Feature.joinNatural, Feature.joinFull, Feature.joinLeft, Feature.joinCross, Feature.joinOuter, Feature.joinSemi, Feature.joinInner, Feature.joinStraight, Feature.joinApply, Feature.joinWindow, Feature.joinUsingColumns, Feature.limit, Feature.limitNull, Feature.limitAll, Feature.limitOffset, Feature.offset, Feature.offsetParam, Feature.fetch, Feature.fetchFirst, Feature.fetchNext, Feature.skip, Feature.first, Feature.top, Feature.optimizeFor, Feature.selectUnique, Feature.distinct, Feature.distinctOn, Feature.orderBy, Feature.orderByNullOrdering, Feature.function).unmodifyable();
 
     /**
      * all {@link Feature}' for SQL INSERT including {@link #SELECT} and

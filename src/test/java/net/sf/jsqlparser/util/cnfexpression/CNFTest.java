@@ -304,8 +304,8 @@ public class CNFTest {
     @Test
     @Disabled
     public void testStackOverflowIssue1576_veryLarge() throws JSQLParserException {
-        Expression expr = CCJSqlParserUtil.parseCondExpression("((3.0 >= 4.0 AND 5.0 <= 6.0) OR " + "(7.0 < 8.0 AND 9.0 > 10.0) OR " + "(11.0 = 11.0 AND 19.0 > 20.0) OR " + "(17.0 = 14.0 AND 19.0 > 17.0) OR " + "(17.0 = 18.0 AND 20.0 > 20.0) OR " + "(17.0 = 16.0 AND 19.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(17.0 = 22.0 AND 19.0 > 20.0) OR " + "(18.0 = 18.0 AND 22.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(18.0 = 18.0 AND 22.0 > 20.0) OR " + "(18.0 = 19.0 AND 22.0 > 20.0) OR " + "(117.0 = 22.0 AND 19.0 > 20.0) OR " + "(118.0 = 18.0 AND 22.0 > 20.0) OR " + "(117.0 = 18.0 AND 19.0 > 20.0) OR " + //+ "(118.0 = 18.0 AND 22.0 > 20.0) OR "
-        //+ "(118.0 = 19.0 AND 22.0 > 20.0) OR "
+        Expression expr = CCJSqlParserUtil.parseCondExpression(//+ "(118.0 = 18.0 AND 22.0 > 20.0) OR "
+        "((3.0 >= 4.0 AND 5.0 <= 6.0) OR " + "(7.0 < 8.0 AND 9.0 > 10.0) OR " + "(11.0 = 11.0 AND 19.0 > 20.0) OR " + "(17.0 = 14.0 AND 19.0 > 17.0) OR " + "(17.0 = 18.0 AND 20.0 > 20.0) OR " + "(17.0 = 16.0 AND 19.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(17.0 = 22.0 AND 19.0 > 20.0) OR " + "(18.0 = 18.0 AND 22.0 > 20.0) OR " + "(17.0 = 18.0 AND 19.0 > 20.0) OR " + "(18.0 = 18.0 AND 22.0 > 20.0) OR " + "(18.0 = 19.0 AND 22.0 > 20.0) OR " + "(117.0 = 22.0 AND 19.0 > 20.0) OR " + "(118.0 = 18.0 AND 22.0 > 20.0) OR " + "(117.0 = 18.0 AND 19.0 > 20.0) OR " + //+ "(118.0 = 19.0 AND 22.0 > 20.0) OR "
         "(17.0 = 18.0 AND 19.0 > 20.0))");
         Expression result = CNFConverter.convertToCNF(expr);
         assertThat(result).asString().hasSize(33685499);

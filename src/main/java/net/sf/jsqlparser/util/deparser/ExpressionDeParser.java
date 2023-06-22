@@ -114,8 +114,9 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 
 @SuppressWarnings({ "PMD.CyclomaticComplexity" })
-public class ExpressionDeParser extends AbstractDeParser<Expression> implements // FIXME maybe we should implement an ItemsListDeparser too?
-ExpressionVisitor {
+public class // FIXME maybe we should implement an ItemsListDeparser too?
+ExpressionDeParser extends // FIXME maybe we should implement an ItemsListDeparser too?
+AbstractDeParser<Expression> implements ExpressionVisitor {
 
     private static final String NOT = "NOT ";
 

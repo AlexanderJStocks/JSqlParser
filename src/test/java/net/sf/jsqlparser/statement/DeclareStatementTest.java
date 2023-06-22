@@ -52,8 +52,9 @@ public class DeclareStatementTest {
     public void testDeclareTypeList() throws JSQLParserException {
         String statement = "DECLARE @group nvarchar (50), @sales money";
         Statement parsed = assertSqlCanBeParsedAndDeparsed(statement);
-        DeclareStatement created = new DeclareStatement().addTypeDefExprList(//
-        asList(new TypeDefExpr(new UserVariable().withName("group"), new ColDataType().withDataType("nvarchar").addArgumentsStringList("50"), null), new TypeDefExpr(new UserVariable().withName("sales"), new ColDataType().withDataType("money"), null))).withDeclareType(DeclareType.TYPE);
+        DeclareStatement created = //
+        new DeclareStatement().//
+        addTypeDefExprList(asList(new TypeDefExpr(new UserVariable().withName("group"), new ColDataType().withDataType("nvarchar").addArgumentsStringList("50"), null), new TypeDefExpr(new UserVariable().withName("sales"), new ColDataType().withDataType("money"), null))).withDeclareType(DeclareType.TYPE);
         assertDeparse(created, statement);
         assertEqualsObjectTree(parsed, created);
     }

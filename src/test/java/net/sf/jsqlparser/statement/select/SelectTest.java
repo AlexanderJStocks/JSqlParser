@@ -1137,9 +1137,9 @@ public class SelectTest {
         assertSqlCanBeParsedAndDeparsed(statement);
         statement = "SELECT a FROM tab1 WHERE CASE b WHEN 1 THEN 2 + 3 ELSE 4 END > 34";
         assertSqlCanBeParsedAndDeparsed(statement);
-        statement = // "WHEN
-        "SELECT a, (CASE " + "WHEN (CASE a WHEN 1 THEN 10 ELSE 20 END) > 15 THEN 'BBB' " + // (SELECT
-        // c
+        // "WHEN
+        statement = // (SELECT
+        "SELECT a, (CASE " + "WHEN (CASE a WHEN 1 THEN 10 ELSE 20 END) > 15 THEN 'BBB' " + // c
         // FROM
         // tab2
         // WHERE
@@ -2450,8 +2450,9 @@ public class SelectTest {
 
     @Test
     public void testReservedKeyword() throws JSQLParserException {
-        final String statement = // all
-        "SELECT cast, do, extract, first, following, last, materialized, nulls, partition, range, row, rows, siblings, value, xml FROM tableName";
+        final // all
+        String // all
+        statement = "SELECT cast, do, extract, first, following, last, materialized, nulls, partition, range, row, rows, siblings, value, xml FROM tableName";
         // of
         // these
         // are
@@ -4623,8 +4624,8 @@ public class SelectTest {
     void testSetOperationListWithBracketsIssue1737() throws JSQLParserException {
         String sqlStr = "(SELECT z)\n" + "         UNION ALL\n" + "         (SELECT z)\n" + "         ORDER BY z";
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);
-        sqlStr = "SELECT z\n" + "FROM (\n" + "         (SELECT z)\n" + "         UNION ALL\n" + "         (SELECT z)\n" + "         ORDER BY z\n" + "     )\n" + // "GROUP BY z\n" +
-        "ORDER BY z\n";
+        sqlStr = // "GROUP BY z\n" +
+        "SELECT z\n" + "FROM (\n" + "         (SELECT z)\n" + "         UNION ALL\n" + "         (SELECT z)\n" + "         ORDER BY z\n" + "     )\n" + "ORDER BY z\n";
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);
         sqlStr = "SELECT z\n" + "FROM (\n" + "         (SELECT z)\n" + "         UNION ALL\n" + "         (SELECT z)\n" + "         ORDER BY z\n" + "     )\n" + "GROUP BY z\n" + "ORDER BY z";
         assertSqlCanBeParsedAndDeparsed(sqlStr, true);

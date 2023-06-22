@@ -34,8 +34,9 @@ public class ConditionalKeywordsTest {
         try {
             try {
                 keywords.addAll(ParserKeywordsUtils.getAllKeywordsUsingRegex(file));
-                for (String reserved : ParserKeywordsUtils.getReservedKeywords(// get all PARSER RESTRICTED without the ALIAS RESTRICTED
-                ParserKeywordsUtils.RESTRICTED_JSQLPARSER & ~ParserKeywordsUtils.RESTRICTED_ALIAS)) {
+                for (String reserved : // get all PARSER RESTRICTED without the ALIAS RESTRICTED
+                ParserKeywordsUtils.// get all PARSER RESTRICTED without the ALIAS RESTRICTED
+                getReservedKeywords(ParserKeywordsUtils.RESTRICTED_JSQLPARSER & ~ParserKeywordsUtils.RESTRICTED_ALIAS)) {
                     keywords.remove(reserved);
                 }
             } catch (Exception ex) {

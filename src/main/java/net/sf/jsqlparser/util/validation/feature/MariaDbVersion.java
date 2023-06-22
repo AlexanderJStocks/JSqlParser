@@ -23,52 +23,104 @@ import java.util.Set;
  */
 public enum MariaDbVersion implements Version {
 
-    V10_5_4("10.5.4", // supported if used with jdbc
-    EnumSet.// supported if used with jdbc
-    of(Feature.jdbcParameter, Feature.jdbcNamedParameter, // expressions
-    Feature.exprLike, // https://mariadb.com/kb/en/select/
-    Feature.select, Feature.selectGroupBy, Feature.function, Feature.selectHaving, Feature.limit, Feature.limitOffset, Feature.offset, Feature.offsetParam, Feature.orderBy, Feature.selectForUpdate, Feature.selectForUpdateWait, Feature.selectForUpdateNoWait, Feature.selectForUpdateSkipLocked, // https://mariadb.com/kb/en/join-syntax/
-    Feature.join, Feature.joinSimple, Feature.joinRight, Feature.joinNatural, Feature.joinLeft, Feature.joinCross, Feature.joinOuter, Feature.joinInner, Feature.joinStraight, Feature.joinUsingColumns, // https://mariadb.com/kb/en/select/#distinct
-    Feature.distinct, Feature.setOperation, // https://mariadb.com/kb/en/union/
-    Feature.setOperationUnion, // https://mariadb.com/kb/en/intersect/
-    Feature.setOperationIntersect, // https://mariadb.com/kb/en/except/
-    Feature.setOperationExcept, // https://mariadb.com/kb/en/common-table-expressions/
-    // https://mariadb.com/kb/en/with/
+    // supported if used with jdbc
+    V10_5_4(// supported if used with jdbc
+    "10.5.4", // supported if used with jdbc
+    EnumSet.// expressions
+    of(// expressions
+    Feature.jdbcParameter, // expressions
+    Feature.jdbcNamedParameter, // https://mariadb.com/kb/en/select/
+    Feature.exprLike, // https://mariadb.com/kb/en/join-syntax/
+    Feature.select, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectGroupBy, // https://mariadb.com/kb/en/join-syntax/
+    Feature.function, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectHaving, // https://mariadb.com/kb/en/join-syntax/
+    Feature.limit, // https://mariadb.com/kb/en/join-syntax/
+    Feature.limitOffset, // https://mariadb.com/kb/en/join-syntax/
+    Feature.offset, // https://mariadb.com/kb/en/join-syntax/
+    Feature.offsetParam, // https://mariadb.com/kb/en/join-syntax/
+    Feature.orderBy, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectForUpdate, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectForUpdateWait, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectForUpdateNoWait, // https://mariadb.com/kb/en/join-syntax/
+    Feature.selectForUpdateSkipLocked, // https://mariadb.com/kb/en/select/#distinct
+    Feature.join, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinSimple, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinRight, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinNatural, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinLeft, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinCross, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinOuter, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinInner, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinStraight, // https://mariadb.com/kb/en/select/#distinct
+    Feature.joinUsingColumns, // https://mariadb.com/kb/en/union/
+    Feature.distinct, // https://mariadb.com/kb/en/union/
+    Feature.setOperation, // https://mariadb.com/kb/en/intersect/
+    Feature.setOperationUnion, // https://mariadb.com/kb/en/except/
+    Feature.setOperationIntersect, // https://mariadb.com/kb/en/common-table-expressions/
+    Feature.setOperationExcept, // https://mariadb.com/kb/en/with/
     // https://mariadb.com/kb/en/non-recursive-common-table-expressions-overview/
     // https://mariadb.com/kb/en/recursive-common-table-expressions-overview/
-    Feature.withItem, Feature.withItemRecursive, // https://mariadb.com/kb/en/insert/
-    Feature.insert, Feature.insertValues, Feature.values, Feature.insertFromSelect, Feature.insertModifierPriority, Feature.insertModifierIgnore, Feature.insertUseSet, Feature.insertUseDuplicateKeyUpdate, Feature.insertReturningExpressionList, // https://mariadb.com/kb/en/update/
-    Feature.update, Feature.updateJoins, Feature.updateOrderBy, Feature.updateLimit, // https://mariadb.com/kb/en/delete/
-    Feature.delete, Feature.deleteJoin, Feature.deleteTables, Feature.deleteLimit, Feature.deleteOrderBy, // https://mariadb.com/kb/en/truncate-table/
-    Feature.truncate, // https://mariadb.com/kb/en/call/
-    Feature.execute, Feature.executeCall, // https://mariadb.com/kb/en/drop/
-    Feature.drop, // https://mariadb.com/kb/en/drop-index/
-    Feature.dropIndex, // https://mariadb.com/kb/en/drop-table/
-    Feature.dropTable, // https://mariadb.com/kb/en/drop-database/
-    // SCHEMA = DATABASE
-    Feature.dropSchema, // https://mariadb.com/kb/en/drop-view/
-    Feature.dropView, // https://mariadb.com/kb/en/drop-sequence/
-    Feature.dropSequence, Feature.dropTableIfExists, Feature.dropIndexIfExists, Feature.dropViewIfExists, Feature.dropSchemaIfExists, Feature.dropSequenceIfExists, // https://mariadb.com/kb/en/replace/
-    Feature.upsert, // https://mariadb.com/kb/en/alter/
-    Feature.alterTable, // https://mariadb.com/kb/en/alter-sequence/
-    Feature.alterSequence, // https://mariadb.com/kb/en/alter-view/
-    Feature.alterView, // https://mariadb.com/kb/en/create-view/
-    Feature.createView, Feature.createOrReplaceView, // https://mariadb.com/kb/en/create-table/
-    Feature.createTable, Feature.createTableCreateOptionStrings, Feature.createTableTableOptionStrings, Feature.createTableFromSelect, Feature.createTableIfNotExists, // https://mariadb.com/kb/en/create-index/
-    Feature.createIndex, // https://mariadb.com/kb/en/create-sequence/
-    Feature.createSequence, // https://mariadb.com/kb/en/create-database/
-    Feature.createSchema, // https://mariadb.com/kb/en/create-trigger/
-    Feature.createTrigger, // https://mariadb.com/kb/en/describe/
-    Feature.describe, // https://mariadb.com/kb/en/explain/
-    Feature.explain, // https://mariadb.com/kb/en/show/
-    Feature.show, // https://mariadb.com/kb/en/show-tables/
-    Feature.showTables, // https://mariadb.com/kb/en/show-columns/
-    Feature.showColumns, // https://mariadb.com/kb/en/show-index/
-    Feature.showIndex, // https://mariadb.com/kb/en/use/
-    Feature.use, // https://mariadb.com/kb/en/grant/
-    Feature.grant, // https://mariadb.com/kb/en/commit/
-    Feature.commit, // https://mariadb.com/kb/en/optimizer-hints/
-    Feature.mySqlHintStraightJoin, Feature.mysqlCalcFoundRows, Feature.mysqlSqlCacheFlag)), ORACLE_MODE("oracle_mode", V10_5_4.copy().add(Feature.selectUnique).getFeatures());
+    // https://mariadb.com/kb/en/insert/
+    Feature.withItem, // https://mariadb.com/kb/en/insert/
+    Feature.withItemRecursive, // https://mariadb.com/kb/en/update/
+    Feature.insert, // https://mariadb.com/kb/en/update/
+    Feature.insertValues, // https://mariadb.com/kb/en/update/
+    Feature.values, // https://mariadb.com/kb/en/update/
+    Feature.insertFromSelect, // https://mariadb.com/kb/en/update/
+    Feature.insertModifierPriority, // https://mariadb.com/kb/en/update/
+    Feature.insertModifierIgnore, // https://mariadb.com/kb/en/update/
+    Feature.insertUseSet, // https://mariadb.com/kb/en/update/
+    Feature.insertUseDuplicateKeyUpdate, // https://mariadb.com/kb/en/update/
+    Feature.insertReturningExpressionList, // https://mariadb.com/kb/en/delete/
+    Feature.update, // https://mariadb.com/kb/en/delete/
+    Feature.updateJoins, // https://mariadb.com/kb/en/delete/
+    Feature.updateOrderBy, // https://mariadb.com/kb/en/delete/
+    Feature.updateLimit, // https://mariadb.com/kb/en/truncate-table/
+    Feature.delete, // https://mariadb.com/kb/en/truncate-table/
+    Feature.deleteJoin, // https://mariadb.com/kb/en/truncate-table/
+    Feature.deleteTables, // https://mariadb.com/kb/en/truncate-table/
+    Feature.deleteLimit, // https://mariadb.com/kb/en/truncate-table/
+    Feature.deleteOrderBy, // https://mariadb.com/kb/en/call/
+    Feature.truncate, // https://mariadb.com/kb/en/drop/
+    Feature.execute, // https://mariadb.com/kb/en/drop/
+    Feature.executeCall, // https://mariadb.com/kb/en/drop-index/
+    Feature.drop, // https://mariadb.com/kb/en/drop-table/
+    Feature.dropIndex, // https://mariadb.com/kb/en/drop-database/
+    Feature.dropTable, // SCHEMA = DATABASE
+    // https://mariadb.com/kb/en/drop-view/
+    Feature.dropSchema, // https://mariadb.com/kb/en/drop-sequence/
+    Feature.dropView, // https://mariadb.com/kb/en/replace/
+    Feature.dropSequence, // https://mariadb.com/kb/en/replace/
+    Feature.dropTableIfExists, // https://mariadb.com/kb/en/replace/
+    Feature.dropIndexIfExists, // https://mariadb.com/kb/en/replace/
+    Feature.dropViewIfExists, // https://mariadb.com/kb/en/replace/
+    Feature.dropSchemaIfExists, // https://mariadb.com/kb/en/replace/
+    Feature.dropSequenceIfExists, // https://mariadb.com/kb/en/alter/
+    Feature.upsert, // https://mariadb.com/kb/en/alter-sequence/
+    Feature.alterTable, // https://mariadb.com/kb/en/alter-view/
+    Feature.alterSequence, // https://mariadb.com/kb/en/create-view/
+    Feature.alterView, // https://mariadb.com/kb/en/create-table/
+    Feature.createView, // https://mariadb.com/kb/en/create-table/
+    Feature.createOrReplaceView, // https://mariadb.com/kb/en/create-index/
+    Feature.createTable, // https://mariadb.com/kb/en/create-index/
+    Feature.createTableCreateOptionStrings, // https://mariadb.com/kb/en/create-index/
+    Feature.createTableTableOptionStrings, // https://mariadb.com/kb/en/create-index/
+    Feature.createTableFromSelect, // https://mariadb.com/kb/en/create-index/
+    Feature.createTableIfNotExists, // https://mariadb.com/kb/en/create-sequence/
+    Feature.createIndex, // https://mariadb.com/kb/en/create-database/
+    Feature.createSequence, // https://mariadb.com/kb/en/create-trigger/
+    Feature.createSchema, // https://mariadb.com/kb/en/describe/
+    Feature.createTrigger, // https://mariadb.com/kb/en/explain/
+    Feature.describe, // https://mariadb.com/kb/en/show/
+    Feature.explain, // https://mariadb.com/kb/en/show-tables/
+    Feature.show, // https://mariadb.com/kb/en/show-columns/
+    Feature.showTables, // https://mariadb.com/kb/en/show-index/
+    Feature.showColumns, // https://mariadb.com/kb/en/use/
+    Feature.showIndex, // https://mariadb.com/kb/en/grant/
+    Feature.use, // https://mariadb.com/kb/en/commit/
+    Feature.grant, // https://mariadb.com/kb/en/optimizer-hints/
+    Feature.commit, Feature.mySqlHintStraightJoin, Feature.mysqlCalcFoundRows, Feature.mysqlSqlCacheFlag)), ORACLE_MODE("oracle_mode", V10_5_4.copy().add(Feature.selectUnique).getFeatures());
 
     private Set<Feature> features;
 

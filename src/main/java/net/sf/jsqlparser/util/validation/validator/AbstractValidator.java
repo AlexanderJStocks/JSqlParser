@@ -310,8 +310,9 @@ public abstract class AbstractValidator<S> implements Validator<S> {
      */
     protected void validateNameWithAlias(ValidationCapability capability, NamedObject namedObject, String fqn, String alias, boolean exists, NamedObject... parents) {
         if (capability instanceof DatabaseMetaDataValidation) {
-            capability.validate(context().put(MetadataContext.named, new Named(namedObject, fqn).setAlias(alias).setParents(//
-            Arrays.asList(parents))).put(MetadataContext.exists, exists), getMessageConsumer(capability));
+            capability.validate(context().put(MetadataContext.named, //
+            new Named(namedObject, fqn).setAlias(alias).//
+            setParents(Arrays.asList(parents))).put(MetadataContext.exists, exists), getMessageConsumer(capability));
         }
     }
 

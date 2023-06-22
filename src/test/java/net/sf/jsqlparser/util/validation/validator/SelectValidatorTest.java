@@ -47,8 +47,9 @@ public class SelectValidatorTest extends ValidationTestAsserts {
 
     @Test
     public void testValidationUnion() throws JSQLParserException {
-        String sql = //
-        "SELECT * FROM mytable WHERE mytable.col = 9 UNION " + "SELECT * FROM mytable3 WHERE mytable3.col = ?";
+        //
+        String //
+        sql = "SELECT * FROM mytable WHERE mytable.col = 9 UNION " + "SELECT * FROM mytable3 WHERE mytable3.col = ?";
         validateNoErrors(sql, 1, DatabaseType.DATABASES);
     }
 

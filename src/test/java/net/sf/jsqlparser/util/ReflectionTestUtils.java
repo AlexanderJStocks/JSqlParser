@@ -34,8 +34,8 @@ public class ReflectionTestUtils {
 
     public static final Predicate<Method> SETTER_METHODS = m -> void.class.isAssignableFrom(m.getReturnType()) && m.getParameterCount() == 1 && m.getName().startsWith("set");
 
-    public static final Predicate<Method> CHAINING_METHODS = m -> m.getDeclaringClass().isAssignableFrom(m.getReturnType()) && // could be prefixed with "with" or not, does not matter
-    m.getParameterCount() == 1;
+    public static final Predicate<Method> CHAINING_METHODS = m -> // could be prefixed with "with" or not, does not matter
+    m.getDeclaringClass().isAssignableFrom(m.getReturnType()) && m.getParameterCount() == 1;
 
     /**
      * Testing of setters, getters, with-/add-methods by calling them with random parameter-values

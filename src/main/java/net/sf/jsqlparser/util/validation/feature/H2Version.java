@@ -23,49 +23,85 @@ import net.sf.jsqlparser.parser.feature.Feature;
  */
 public enum H2Version implements Version {
 
-    V_1_4_200("1.4.200", EnumSet.of(// supported if used with jdbc
-    Feature.jdbcParameter, Feature.jdbcNamedParameter, // expressions
-    Feature.exprLike, // http://h2database.com/html/commands.html#select
-    Feature.select, Feature.selectGroupBy, Feature.function, Feature.selectHaving, // https://h2database.com/html/grammar.html?#table_expression
-    // https://h2database.com/html/grammar.html?#join_specification
-    Feature.join, Feature.joinSimple, Feature.joinRight, Feature.joinFull, Feature.joinLeft, Feature.joinCross, Feature.joinOuter, Feature.joinInner, Feature.joinNatural, Feature.joinUsingColumns, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
-    // http://www.h2database.com/html/grammar.html#order
-    Feature.orderBy, Feature.orderByNullOrdering, // http://www.h2database.com/html/commands.html?highlight=select&search=SELECT#with
-    Feature.withItem, Feature.withItemRecursive, // http://h2database.com/html/commands.html#comment
-    Feature.comment, Feature.commentOnTable, Feature.commentOnColumn, Feature.commentOnView, // http://h2database.com/html/functions.html#table
-    Feature.tableFunction, // http://h2database.com/html/commands.html#select
-    Feature.setOperation, Feature.setOperationUnion, Feature.setOperationIntersect, Feature.setOperationExcept, Feature.setOperationMinus, // http://h2database.com/html/commands.html#create_sequence
-    Feature.createSequence, // http://h2database.com/html/commands.html#alter_sequence
-    Feature.alterSequence, // http://h2database.com/html/commands.html#create_schema
-    Feature.createSchema, // http://h2database.com/html/commands.html#create_index
-    Feature.createIndex, // http://h2database.com/html/commands.html#create_table
-    Feature.createTable, Feature.createTableCreateOptionStrings, Feature.createTableTableOptionStrings, Feature.createTableFromSelect, Feature.createTableIfNotExists, // http://h2database.com/html/commands.html#create_view
-    Feature.createView, Feature.createViewForce, Feature.createOrReplaceView, // http://h2database.com/html/commands.html#alter_view_rename
-    // Feature.alterView,
-    // http://h2database.com/html/commands.html#select
-    Feature.top, // http://www.h2database.com/html/advanced.html?search=limit#result_sets
-    Feature.fetch, Feature.fetchFirst, // http://www.h2database.com/html/commands.html?highlight=DISTINCT&search=SELECT#firstFound
-    Feature.distinct, // http://www.h2database.com/html/commands.html?highlight=DISTINCT%20ON&search=SELECT#firstFound
-    Feature.distinctOn, // http://h2database.com/html/commands.html#insert
-    Feature.insert, Feature.insertValues, Feature.values, Feature.insertFromSelect, // http://h2database.com/html/commands.html#update
-    Feature.update, // http://h2database.com/html/commands.html#delete
-    Feature.delete, // http://h2database.com/html/commands.html#truncate_table
-    Feature.truncate, // http://www.h2database.com/html/commands.html#execute_immediate
+    V_1_4_200("1.4.200", // supported if used with jdbc
+    EnumSet.// supported if used with jdbc
+    of(// expressions
+    Feature.jdbcParameter, // expressions
+    Feature.jdbcNamedParameter, // http://h2database.com/html/commands.html#select
+    Feature.exprLike, // https://h2database.com/html/grammar.html?#table_expression
+    Feature.select, // https://h2database.com/html/grammar.html?#table_expression
+    Feature.selectGroupBy, // https://h2database.com/html/grammar.html?#table_expression
+    Feature.function, // https://h2database.com/html/grammar.html?#table_expression
+    Feature.selectHaving, // https://h2database.com/html/grammar.html?#join_specification
+    // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.join, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinSimple, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinRight, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinFull, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinLeft, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinCross, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinOuter, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinInner, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinNatural, // http://www.h2database.com/html/commands.html?highlight=ORDER%20BY&search=SELECT#firstFound
+    Feature.joinUsingColumns, // http://www.h2database.com/html/grammar.html#order
+    // http://www.h2database.com/html/commands.html?highlight=select&search=SELECT#with
+    Feature.orderBy, // http://www.h2database.com/html/commands.html?highlight=select&search=SELECT#with
+    Feature.orderByNullOrdering, // http://h2database.com/html/commands.html#comment
+    Feature.withItem, // http://h2database.com/html/commands.html#comment
+    Feature.withItemRecursive, // http://h2database.com/html/functions.html#table
+    Feature.comment, // http://h2database.com/html/functions.html#table
+    Feature.commentOnTable, // http://h2database.com/html/functions.html#table
+    Feature.commentOnColumn, // http://h2database.com/html/functions.html#table
+    Feature.commentOnView, // http://h2database.com/html/commands.html#select
+    Feature.tableFunction, // http://h2database.com/html/commands.html#create_sequence
+    Feature.setOperation, // http://h2database.com/html/commands.html#create_sequence
+    Feature.setOperationUnion, // http://h2database.com/html/commands.html#create_sequence
+    Feature.setOperationIntersect, // http://h2database.com/html/commands.html#create_sequence
+    Feature.setOperationExcept, // http://h2database.com/html/commands.html#create_sequence
+    Feature.setOperationMinus, // http://h2database.com/html/commands.html#alter_sequence
+    Feature.createSequence, // http://h2database.com/html/commands.html#create_schema
+    Feature.alterSequence, // http://h2database.com/html/commands.html#create_index
+    Feature.createSchema, // http://h2database.com/html/commands.html#create_table
+    Feature.createIndex, // http://h2database.com/html/commands.html#create_view
+    Feature.createTable, // http://h2database.com/html/commands.html#create_view
+    Feature.createTableCreateOptionStrings, // http://h2database.com/html/commands.html#create_view
+    Feature.createTableTableOptionStrings, // http://h2database.com/html/commands.html#create_view
+    Feature.createTableFromSelect, // http://h2database.com/html/commands.html#create_view
+    Feature.createTableIfNotExists, // http://h2database.com/html/commands.html#alter_view_rename
+    Feature.createView, // http://h2database.com/html/commands.html#alter_view_rename
+    Feature.createViewForce, // http://h2database.com/html/commands.html#alter_view_rename
+    Feature.createOrReplaceView, // Feature.alterView,
+    // http://www.h2database.com/html/advanced.html?search=limit#result_sets
+    Feature.top, // http://www.h2database.com/html/commands.html?highlight=DISTINCT&search=SELECT#firstFound
+    Feature.fetch, // http://www.h2database.com/html/commands.html?highlight=DISTINCT&search=SELECT#firstFound
+    Feature.fetchFirst, // http://www.h2database.com/html/commands.html?highlight=DISTINCT%20ON&search=SELECT#firstFound
+    Feature.distinct, // http://h2database.com/html/commands.html#insert
+    Feature.distinctOn, // http://h2database.com/html/commands.html#update
+    Feature.insert, // http://h2database.com/html/commands.html#update
+    Feature.insertValues, // http://h2database.com/html/commands.html#update
+    Feature.values, // http://h2database.com/html/commands.html#update
+    Feature.insertFromSelect, // http://h2database.com/html/commands.html#delete
+    Feature.update, // http://h2database.com/html/commands.html#truncate_table
+    Feature.delete, // http://www.h2database.com/html/commands.html#execute_immediate
+    Feature.truncate, // http://h2database.com/html/commands.html#drop_table
     Feature.executeStatementImmediate, // http://h2database.com/html/commands.html#drop_table
-    // http://h2database.com/html/commands.html#drop_index
-    Feature.drop, // http://h2database.com/html/commands.html#drop_table
-    Feature.dropTable, // http://h2database.com/html/commands.html#drop_index
-    Feature.dropIndex, // http://h2database.com/html/commands.html#drop_view
-    Feature.dropView, // http://h2database.com/html/commands.html#drop_schema
-    Feature.dropSchema, // http://h2database.com/html/commands.html#drop_sequence
-    Feature.dropSequence, Feature.dropTableIfExists, Feature.dropIndexIfExists, Feature.dropViewIfExists, Feature.dropSchemaIfExists, Feature.dropSequenceIfExists, // http://h2database.com/html/commands.html#alter_table_add
-    // http://h2database.com/html/commands.html#alter_table_add_constraint
+    Feature.drop, // http://h2database.com/html/commands.html#drop_index
+    Feature.dropTable, // http://h2database.com/html/commands.html#drop_view
+    Feature.dropIndex, // http://h2database.com/html/commands.html#drop_schema
+    Feature.dropView, // http://h2database.com/html/commands.html#drop_sequence
+    Feature.dropSchema, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropSequence, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropTableIfExists, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropIndexIfExists, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropViewIfExists, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropSchemaIfExists, // http://h2database.com/html/commands.html#alter_table_add
+    Feature.dropSequenceIfExists, // http://h2database.com/html/commands.html#alter_table_add_constraint
     // ...
-    Feature.alterTable, // http://www.h2database.com/html/commands.html#explain
-    Feature.explain, // http://www.h2database.com/html/commands.html#grant_right
-    // http://www.h2database.com/html/commands.html#grant_role
-    Feature.grant, // http://h2database.com/html/commands.html#commit
-    Feature.commit));
+    // http://www.h2database.com/html/commands.html#explain
+    Feature.alterTable, // http://www.h2database.com/html/commands.html#grant_right
+    Feature.explain, // http://www.h2database.com/html/commands.html#grant_role
+    // http://h2database.com/html/commands.html#commit
+    Feature.grant, Feature.commit));
 
     private Set<Feature> features;
 

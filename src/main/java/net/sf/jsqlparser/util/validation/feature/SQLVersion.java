@@ -25,10 +25,23 @@ import net.sf.jsqlparser.parser.feature.Feature;
  */
 public enum SQLVersion implements Version {
 
-    SQL1986("SQL-86", EnumSet.of(// supported if used with jdbc
-    Feature.jdbcParameter, Feature.jdbcNamedParameter, // common features
-    Feature.setOperation, Feature.select, Feature.selectGroupBy, Feature.function, Feature.insert, Feature.insertFromSelect, Feature.insertValues, Feature.values, Feature.update, Feature.delete, Feature.truncate, Feature.drop, //
-    Feature.alterTable)),
+    SQL1986("SQL-86", // supported if used with jdbc
+    EnumSet.// supported if used with jdbc
+    of(// common features
+    Feature.jdbcParameter, // common features
+    Feature.jdbcNamedParameter, //
+    Feature.setOperation, //
+    Feature.select, //
+    Feature.selectGroupBy, //
+    Feature.function, //
+    Feature.insert, //
+    Feature.insertFromSelect, //
+    Feature.insertValues, //
+    Feature.values, //
+    Feature.update, //
+    Feature.delete, //
+    Feature.truncate, //
+    Feature.drop, Feature.alterTable)),
     //
     SQL1989("SQL-89", SQL1986.copy().getFeatures()),
     //

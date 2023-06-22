@@ -36,8 +36,9 @@ public class JSQLParserFluentModelTests {
 
     @Test
     public void testParseAndBuild() throws JSQLParserException {
-        String statement = //
-        "SELECT * FROM tab1 AS t1 " + "JOIN tab2 t2 ON t1.ref = t2.id WHERE (t1.col1 = ? OR t1.col2 = ?) AND t1.col3 IN ('A')";
+        //
+        String //
+        statement = "SELECT * FROM tab1 AS t1 " + "JOIN tab2 t2 ON t1.ref = t2.id WHERE (t1.col1 = ? OR t1.col2 = ?) AND t1.col3 IN ('A')";
         Statement parsed = TestUtils.assertSqlCanBeParsedAndDeparsed(statement);
         Table t1 = new Table("tab1").withAlias(new Alias("t1").withUseAs(true));
         Table t2 = new Table("tab2").withAlias(new Alias("t2", false));
