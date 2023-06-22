@@ -15,11 +15,17 @@ import static net.sf.jsqlparser.statement.select.KSQLWindow.TimeUnit;
 public class KSQLJoinWindow extends ASTNodeAccessImpl {
 
     private boolean beforeAfter;
+
     private long duration;
+
     private TimeUnit timeUnit;
+
     private long beforeDuration;
+
     private TimeUnit beforeTimeUnit;
+
     private long afterDuration;
+
     private TimeUnit afterTimeUnit;
 
     public boolean isBeforeAfterWindow() {
@@ -81,8 +87,7 @@ public class KSQLJoinWindow extends ASTNodeAccessImpl {
     @Override
     public String toString() {
         if (isBeforeAfterWindow()) {
-            return "(" + beforeDuration + " " + beforeTimeUnit + ", " + afterDuration + " "
-                    + afterTimeUnit + ")";
+            return "(" + beforeDuration + " " + beforeTimeUnit + ", " + afterDuration + " " + afterTimeUnit + ")";
         }
         return "(" + duration + " " + timeUnit + ")";
     }

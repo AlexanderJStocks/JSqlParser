@@ -103,7 +103,6 @@ public class StatementValidator extends AbstractValidator<Statement> implements 
     @Override
     public void visit(Select select) {
         validateFeature(Feature.select);
-
         SelectValidator selectValidator = getValidator(SelectValidator.class);
         select.accept(selectValidator);
     }
@@ -212,7 +211,6 @@ public class StatementValidator extends AbstractValidator<Statement> implements 
         explain.getStatement().accept(this);
     }
 
-
     @Override
     public void visit(DeclareStatement declare) {
         getValidator(DeclareStatementValidator.class).validate(declare);
@@ -303,6 +301,5 @@ public class StatementValidator extends AbstractValidator<Statement> implements 
 
     @Override
     public void visit(UnsupportedStatement unsupportedStatement) {
-
     }
 }

@@ -10,7 +10,6 @@
 package net.sf.jsqlparser.statement.create.table;
 
 import net.sf.jsqlparser.statement.select.PlainSelect;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,10 +23,13 @@ import java.util.Optional;
 public class ColumnDefinition implements Serializable {
 
     private String columnName;
+
     private ColDataType colDataType;
+
     private List<String> columnSpecs;
 
-    public ColumnDefinition() {}
+    public ColumnDefinition() {
+    }
 
     public ColumnDefinition(String columnName, ColDataType colDataType) {
         this.columnName = columnName;
@@ -69,9 +71,7 @@ public class ColumnDefinition implements Serializable {
     }
 
     public String toStringDataTypeAndSpec() {
-        return colDataType + (columnSpecs != null && !columnSpecs.isEmpty()
-                ? " " + PlainSelect.getStringList(columnSpecs, false, false)
-                : "");
+        return colDataType + (columnSpecs != null && !columnSpecs.isEmpty() ? " " + PlainSelect.getStringList(columnSpecs, false, false) : "");
     }
 
     public ColumnDefinition withColumnName(String columnName) {

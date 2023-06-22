@@ -11,7 +11,6 @@ package net.sf.jsqlparser.util.deparser;
 
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.statement.update.UpdateSet;
-
 import java.util.List;
 
 /**
@@ -20,16 +19,15 @@ import java.util.List;
  * @param <S> the type of statement this DeParser supports
  */
 abstract class AbstractDeParser<S> {
+
     protected StringBuilder buffer;
 
     protected AbstractDeParser(StringBuilder buffer) {
         this.buffer = buffer;
     }
 
-    public static void deparseUpdateSets(List<UpdateSet> updateSets, StringBuilder buffer,
-            ExpressionVisitor visitor) {
-        ExpressionListDeParser expressionListDeParser =
-                new ExpressionListDeParser(visitor, buffer);
+    public static void deparseUpdateSets(List<UpdateSet> updateSets, StringBuilder buffer, ExpressionVisitor visitor) {
+        ExpressionListDeParser expressionListDeParser = new ExpressionListDeParser(visitor, buffer);
         int j = 0;
         if (updateSets != null) {
             for (UpdateSet updateSet : updateSets) {

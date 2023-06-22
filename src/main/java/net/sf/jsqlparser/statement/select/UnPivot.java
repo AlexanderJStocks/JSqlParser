@@ -12,17 +12,21 @@ package net.sf.jsqlparser.statement.select;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.schema.Column;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class UnPivot implements Serializable {
 
     private boolean includeNulls = false;
+
     private boolean includeNullsSpecified = false;
+
     private ExpressionList<Column> unpivotClause;
+
     private ExpressionList<Column> unpivotForClause;
+
     private List<SelectItem<?>> unpivotInClause;
+
     private Alias alias;
 
     public void accept(PivotVisitor pivotVisitor) {
@@ -68,15 +72,7 @@ public class UnPivot implements Serializable {
 
     @Override
     public String toString() {
-        return "UNPIVOT"
-                + (includeNullsSpecified && includeNulls ? " INCLUDE NULLS" : "")
-                + (includeNullsSpecified && !includeNulls ? " EXCLUDE NULLS" : "")
-                + " ("
-                + unpivotClause.toString()
-                + " FOR "
-                + unpivotForClause.toString()
-                + " IN " + PlainSelect.getStringList(unpivotInClause, true, true) + ")"
-                + (alias != null ? alias.toString() : "");
+        return "UNPIVOT" + (includeNullsSpecified && includeNulls ? " INCLUDE NULLS" : "") + (includeNullsSpecified && !includeNulls ? " EXCLUDE NULLS" : "") + " (" + unpivotClause.toString() + " FOR " + unpivotForClause.toString() + " IN " + PlainSelect.getStringList(unpivotInClause, true, true) + ")" + (alias != null ? alias.toString() : "");
     }
 
     public UnPivot withIncludeNulls(boolean includeNulls) {

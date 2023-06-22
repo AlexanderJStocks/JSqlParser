@@ -19,9 +19,11 @@ import java.util.Optional;
 public class Distinct implements Serializable {
 
     private List<SelectItem<?>> onSelectItems;
+
     private boolean useUnique = false;
 
-    public Distinct() {}
+    public Distinct() {
+    }
 
     public Distinct(boolean useUnique) {
         this.useUnique = useUnique;
@@ -46,11 +48,9 @@ public class Distinct implements Serializable {
     @Override
     public String toString() {
         String sql = useUnique ? "UNIQUE" : "DISTINCT";
-
         if (onSelectItems != null && !onSelectItems.isEmpty()) {
             sql += " ON (" + PlainSelect.getStringList(onSelectItems) + ")";
         }
-
         return sql;
     }
 
@@ -65,15 +65,13 @@ public class Distinct implements Serializable {
     }
 
     public Distinct addOnSelectItems(SelectItem<?>... onSelectItems) {
-        List<SelectItem<?>> collection =
-                Optional.ofNullable(getOnSelectItems()).orElseGet(ArrayList::new);
+        List<SelectItem<?>> collection = Optional.ofNullable(getOnSelectItems()).orElseGet(ArrayList::new);
         Collections.addAll(collection, onSelectItems);
         return this.withOnSelectItems(collection);
     }
 
     public Distinct addOnSelectItems(Collection<? extends SelectItem<?>> onSelectItems) {
-        List<SelectItem<?>> collection =
-                Optional.ofNullable(getOnSelectItems()).orElseGet(ArrayList::new);
+        List<SelectItem<?>> collection = Optional.ofNullable(getOnSelectItems()).orElseGet(ArrayList::new);
         collection.addAll(onSelectItems);
         return this.withOnSelectItems(collection);
     }

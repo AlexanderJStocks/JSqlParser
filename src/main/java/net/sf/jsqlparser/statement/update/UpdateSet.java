@@ -14,17 +14,17 @@ import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
 import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.statement.select.Select;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Objects;
 
 public class UpdateSet implements Serializable {
+
     protected ExpressionList<Column> columns = new ExpressionList<>();
+
     protected ExpressionList<Expression> values = new ExpressionList<>();
 
     public UpdateSet() {
-
     }
 
     public UpdateSet(Column column) {
@@ -95,8 +95,7 @@ public class UpdateSet implements Serializable {
         values.addAll(expressionList);
     }
 
-    public final static StringBuilder appendUpdateSetsTo(StringBuilder builder,
-            Collection<UpdateSet> updateSets) {
+    public final static StringBuilder appendUpdateSetsTo(StringBuilder builder, Collection<UpdateSet> updateSets) {
         int j = 0;
         for (UpdateSet updateSet : updateSets) {
             updateSet.appendTo(builder, j);
@@ -105,17 +104,14 @@ public class UpdateSet implements Serializable {
         return builder;
     }
 
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPath"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPath" })
     StringBuilder appendTo(StringBuilder builder, int j) {
         if (j > 0) {
             builder.append(", ");
         }
-        builder.append(
-                Select.getStringList(columns, true, columns instanceof ParenthesedExpressionList));
+        builder.append(Select.getStringList(columns, true, columns instanceof ParenthesedExpressionList));
         builder.append(" = ");
-        builder.append(
-                Select.getStringList(values, true, values instanceof ParenthesedExpressionList));
+        builder.append(Select.getStringList(values, true, values instanceof ParenthesedExpressionList));
         return builder;
     }
-
 }

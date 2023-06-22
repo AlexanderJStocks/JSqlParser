@@ -14,13 +14,14 @@ import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionLi
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-
 import java.util.List;
 
 public class Execute implements Statement {
 
     private ExecType execType = ExecType.EXECUTE;
+
     private String name;
+
     private ExpressionList exprList;
 
     public String getName() {
@@ -69,11 +70,7 @@ public class Execute implements Statement {
 
     @Override
     public String toString() {
-        return execType.name() + " " + name
-                + (exprList != null
-                        ? " " + PlainSelect.getStringList(exprList, true,
-                                exprList instanceof ParenthesedExpressionList)
-                        : "");
+        return execType.name() + " " + name + (exprList != null ? " " + PlainSelect.getStringList(exprList, true, exprList instanceof ParenthesedExpressionList) : "");
     }
 
     public Execute withExecType(ExecType execType) {
@@ -92,6 +89,7 @@ public class Execute implements Statement {
     }
 
     public enum ExecType {
+
         EXECUTE, EXEC, CALL;
 
         public static ExecType from(String type) {

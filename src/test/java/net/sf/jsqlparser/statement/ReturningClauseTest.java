@@ -14,15 +14,10 @@ import net.sf.jsqlparser.test.TestUtils;
 import org.junit.jupiter.api.Test;
 
 class ReturningClauseTest {
+
     @Test
     void returnIntoTest() throws JSQLParserException {
-        String sqlStr = "  insert into emp\n"
-                + "  (empno, ename)\n"
-                + "  values\n"
-                + "  (seq_emp.nextval, 'morgan')\n"
-                + "  returning empno\n"
-                + "  into x";
+        String sqlStr = "  insert into emp\n" + "  (empno, ename)\n" + "  values\n" + "  (seq_emp.nextval, 'morgan')\n" + "  returning empno\n" + "  into x";
         TestUtils.assertSqlCanBeParsedAndDeparsed(sqlStr, true);
     }
-
 }

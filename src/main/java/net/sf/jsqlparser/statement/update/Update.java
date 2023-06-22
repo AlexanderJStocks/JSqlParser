@@ -24,7 +24,6 @@ import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.WithItem;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -33,21 +32,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
-@SuppressWarnings({"PMD.CyclomaticComplexity"})
+@SuppressWarnings({ "PMD.CyclomaticComplexity" })
 public class Update implements Statement {
 
     private List<WithItem> withItemsList;
+
     private Table table;
+
     private Expression where;
+
     private List<UpdateSet> updateSets;
+
     private FromItem fromItem;
+
     private List<Join> joins;
+
     private List<Join> startJoins;
+
     private OracleHint oracleHint = null;
+
     private List<OrderByElement> orderByElements;
+
     private Limit limit;
+
     private ReturningClause returningClause;
+
     private UpdateModifierPriority modifierPriority;
+
     private boolean modifierIgnore;
 
     private OutputClause outputClause;
@@ -96,15 +107,13 @@ public class Update implements Statement {
     }
 
     public Update addWithItemsList(WithItem... withItemsList) {
-        List<WithItem> collection =
-                Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
+        List<WithItem> collection = Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
         Collections.addAll(collection, withItemsList);
         return this.withWithItemsList(collection);
     }
 
     public Update addWithItemsList(Collection<? extends WithItem> withItemsList) {
-        List<WithItem> collection =
-                Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
+        List<WithItem> collection = Optional.ofNullable(getWithItemsList()).orElseGet(ArrayList::new);
         collection.addAll(withItemsList);
         return this.withWithItemsList(collection);
     }
@@ -200,7 +209,6 @@ public class Update implements Statement {
         if (updateSets.get(0).values.get(0) instanceof Select) {
             select = (Select) updateSets.get(0).values.get(0);
         }
-
         return select;
     }
 
@@ -217,15 +225,16 @@ public class Update implements Statement {
 
     @Deprecated
     public boolean isUseColumnsBrackets() {
-        return false;
+        return fakeMethod();
     }
 
     @Deprecated
-    public void setUseColumnsBrackets(boolean useColumnsBrackets) {}
+    public void setUseColumnsBrackets(boolean useColumnsBrackets) {
+    }
 
     @Deprecated
     public boolean isUseSelect() {
-        return false;
+        return fakeMethod();
     }
 
     @Deprecated
@@ -275,14 +284,12 @@ public class Update implements Statement {
     }
 
     @Override
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity",
-            "PMD.ExcessiveMethodLength"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength" })
     public String toString() {
         StringBuilder b = new StringBuilder();
-
         if (withItemsList != null && !withItemsList.isEmpty()) {
             b.append("WITH ");
-            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = withItemsList.iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 b.append(withItem);
                 if (iter.hasNext()) {
@@ -308,14 +315,11 @@ public class Update implements Statement {
                 }
             }
         }
-
         b.append(" SET ");
         UpdateSet.appendUpdateSetsTo(b, updateSets);
-
         if (outputClause != null) {
             outputClause.appendTo(b);
         }
-
         if (fromItem != null) {
             b.append(" FROM ").append(fromItem);
             if (joins != null) {
@@ -328,7 +332,6 @@ public class Update implements Statement {
                 }
             }
         }
-
         if (where != null) {
             b.append(" WHERE ");
             b.append(where);
@@ -339,11 +342,9 @@ public class Update implements Statement {
         if (limit != null) {
             b.append(limit);
         }
-
         if (returningClause != null) {
             returningClause.appendTo(b);
         }
-
         return b.toString();
     }
 
@@ -464,15 +465,13 @@ public class Update implements Statement {
     }
 
     public Update addOrderByElements(OrderByElement... orderByElements) {
-        List<OrderByElement> collection =
-                Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
+        List<OrderByElement> collection = Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
         Collections.addAll(collection, orderByElements);
         return this.withOrderByElements(collection);
     }
 
     public Update addOrderByElements(Collection<? extends OrderByElement> orderByElements) {
-        List<OrderByElement> collection =
-                Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
+        List<OrderByElement> collection = Optional.ofNullable(getOrderByElements()).orElseGet(ArrayList::new);
         collection.addAll(orderByElements);
         return this.withOrderByElements(collection);
     }
@@ -483,5 +482,9 @@ public class Update implements Statement {
 
     public <E extends FromItem> E getFromItem(Class<E> type) {
         return type.cast(getFromItem());
+    }
+
+    private boolean fakeMethod() {
+        return false;
     }
 }

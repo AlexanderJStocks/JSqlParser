@@ -10,5 +10,6 @@
 package net.sf.jsqlparser.statement.select;
 
 public interface SelectItemVisitor {
+
     void visit(SelectItem selectItem);
 }

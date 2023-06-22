@@ -12,7 +12,6 @@ package net.sf.jsqlparser.statement;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,6 +21,7 @@ import java.util.List;
 public final class SetStatement implements Statement {
 
     private String effectParameter;
+
     private final List<NameExpr> values = new ArrayList<>();
 
     public SetStatement() {
@@ -71,7 +71,6 @@ public final class SetStatement implements Statement {
         return setUseEqual(0, useEqual);
     }
 
-
     public Object getName() {
         return getName(0);
     }
@@ -105,8 +104,7 @@ public final class SetStatement implements Statement {
     }
 
     private String toString(NameExpr ne) {
-        return ne.name + (ne.useEqual ? " = " : " ")
-                + PlainSelect.getStringList(ne.expressions, true, false);
+        return ne.name + (ne.useEqual ? " = " : " ") + PlainSelect.getStringList(ne.expressions, true, false);
     }
 
     @Override
@@ -124,7 +122,6 @@ public final class SetStatement implements Statement {
             }
             b.append(toString(ne));
         }
-
         return b.toString();
     }
 
@@ -151,8 +148,11 @@ public final class SetStatement implements Statement {
     }
 
     static class NameExpr implements Serializable {
+
         Object name;
+
         ExpressionList expressions;
+
         boolean useEqual;
 
         public Object getName() {

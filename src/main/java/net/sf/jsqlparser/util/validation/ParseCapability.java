@@ -27,6 +27,7 @@ final class ParseCapability implements ValidationCapability {
     public static final String NAME = "parsing";
 
     private String statements;
+
     private Statements parsedStatement;
 
     public ParseCapability(String statements) {
@@ -48,13 +49,9 @@ final class ParseCapability implements ValidationCapability {
     public void validate(ValidationContext context, Consumer<ValidationException> errorConsumer) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         try {
-            this.parsedStatement = CCJSqlParserUtil.parseStatements(
-                    CCJSqlParserUtil.newParser(statements)
-                            .withConfiguration(context.getConfiguration()),
-                    executorService);
+            this.parsedStatement = CCJSqlParserUtil.parseStatements(CCJSqlParserUtil.newParser(statements).withConfiguration(context.getConfiguration()), executorService);
         } catch (JSQLParserException e) {
-            errorConsumer
-                    .accept(new ParseException("Cannot parse statement: " + e.getMessage(), e));
+            errorConsumer.accept(new ParseException("Cannot parse statement: " + e.getMessage(), e));
         } finally {
             executorService.shutdown();
         }
@@ -64,5 +61,4 @@ final class ParseCapability implements ValidationCapability {
     public String getName() {
         return NAME;
     }
-
 }

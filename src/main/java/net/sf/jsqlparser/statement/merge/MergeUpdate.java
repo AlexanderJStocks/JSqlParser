@@ -11,14 +11,15 @@ package net.sf.jsqlparser.statement.merge;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.update.UpdateSet;
-
 import java.io.Serializable;
 import java.util.List;
 
 public class MergeUpdate implements Serializable {
 
     private List<UpdateSet> updateSets;
+
     private Expression whereCondition;
+
     private Expression deleteWhereCondition;
 
     public MergeUpdate(List<UpdateSet> updateSets) {
@@ -55,7 +56,6 @@ public class MergeUpdate implements Serializable {
         StringBuilder b = new StringBuilder();
         b.append(" WHEN MATCHED THEN UPDATE SET ");
         UpdateSet.appendUpdateSetsTo(b, updateSets);
-
         if (whereCondition != null) {
             b.append(" WHERE ").append(whereCondition.toString());
         }

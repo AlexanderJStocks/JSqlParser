@@ -14,7 +14,9 @@ import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 
 public class LikeExpression extends BinaryExpression {
+
     public enum KeyWord {
+
         LIKE, ILIKE, RLIKE, REGEXP;
 
         public static KeyWord from(String keyword) {
@@ -23,8 +25,11 @@ public class LikeExpression extends BinaryExpression {
     }
 
     private boolean not = false;
+
     private boolean useBinary = false;
+
     private Expression escapeExpression = null;
+
     private KeyWord likeKeyWord = KeyWord.LIKE;
 
     public boolean isNot() {
@@ -57,8 +62,7 @@ public class LikeExpression extends BinaryExpression {
 
     @Override
     public String toString() {
-        String retval = getLeftExpression() + " " + (not ? "NOT " : "")
-                + likeKeyWord + " " + (useBinary ? "BINARY " : "") + getRightExpression();
+        String retval = getLeftExpression() + " " + (not ? "NOT " : "") + likeKeyWord + " " + (useBinary ? "BINARY " : "") + getRightExpression();
         if (escapeExpression != null) {
             retval += " ESCAPE " + escapeExpression;
         }

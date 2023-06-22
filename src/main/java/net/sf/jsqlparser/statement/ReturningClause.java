@@ -10,7 +10,6 @@
 package net.sf.jsqlparser.statement;
 
 import net.sf.jsqlparser.statement.select.SelectItem;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,10 @@ import java.util.List;
  * {@see https://docs.oracle.com/en/database/oracle/oracle-database/19/sqlrf/DELETE.html#GUID-156845A5-B626-412B-9F95-8869B988ABD7
  * } Part of UPDATE, INSERT, DELETE statements
  */
-
 public class ReturningClause extends ArrayList<SelectItem<?>> {
+
     enum Keyword {
+
         RETURN, RETURNING;
 
         public static Keyword from(String keyword) {
@@ -36,15 +36,13 @@ public class ReturningClause extends ArrayList<SelectItem<?>> {
      */
     private final List<Object> dataItems;
 
-    public ReturningClause(Keyword keyword, List<SelectItem<?>> selectItems,
-            List<Object> dataItems) {
+    public ReturningClause(Keyword keyword, List<SelectItem<?>> selectItems, List<Object> dataItems) {
         this.keyword = keyword;
         this.addAll(selectItems);
         this.dataItems = dataItems;
     }
 
-    public ReturningClause(String keyword, List<SelectItem<?>> selectItems,
-            List<Object> dataItems) {
+    public ReturningClause(String keyword, List<SelectItem<?>> selectItems, List<Object> dataItems) {
         this(Keyword.from(keyword), selectItems, dataItems);
     }
 
@@ -77,7 +75,6 @@ public class ReturningClause extends ArrayList<SelectItem<?>> {
             }
             builder.append(get(i));
         }
-
         if (dataItems != null && dataItems.size() > 0) {
             builder.append(" INTO ");
             for (int i = 0; i < dataItems.size(); i++) {

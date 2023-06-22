@@ -12,7 +12,9 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class TranscodingFunction extends ASTNodeAccessImpl implements Expression {
+
     private Expression expression;
+
     private String transcodingName;
 
     public TranscodingFunction(Expression expression, String transcodingName) {
@@ -48,7 +50,6 @@ public class TranscodingFunction extends ASTNodeAccessImpl implements Expression
     public TranscodingFunction withTranscodingName(String transcodingName) {
         this.setTranscodingName(transcodingName);
         return this;
-
     }
 
     public void accept(ExpressionVisitor expressionVisitor) {
@@ -56,12 +57,7 @@ public class TranscodingFunction extends ASTNodeAccessImpl implements Expression
     }
 
     public StringBuilder appendTo(StringBuilder builder) {
-        return builder
-                .append("CONVERT( ")
-                .append(expression)
-                .append(" USING ")
-                .append(transcodingName)
-                .append(" )");
+        return builder.append("CONVERT( ").append(expression).append(" USING ").append(transcodingName).append(" )");
     }
 
     @Override

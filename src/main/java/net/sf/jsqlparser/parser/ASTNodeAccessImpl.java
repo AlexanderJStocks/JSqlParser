@@ -33,5 +33,4 @@ public class ASTNodeAccessImpl implements ASTNodeAccess {
         }
         return builder;
     }
-
 }

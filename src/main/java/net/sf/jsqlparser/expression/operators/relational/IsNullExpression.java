@@ -16,8 +16,11 @@ import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 public class IsNullExpression extends ASTNodeAccessImpl implements Expression {
 
     private Expression leftExpression;
+
     private boolean not = false;
+
     private boolean useIsNull = false;
+
     private boolean useNotNull = false;
 
     public Expression getLeftExpression() {

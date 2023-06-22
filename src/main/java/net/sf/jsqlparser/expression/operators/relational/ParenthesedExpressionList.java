@@ -11,12 +11,13 @@ package net.sf.jsqlparser.expression.operators.relational;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.statement.select.PlainSelect;
-
 import java.util.Arrays;
 import java.util.Collection;
 
 public class ParenthesedExpressionList<T extends Expression> extends ExpressionList<T> {
-    public ParenthesedExpressionList() {}
+
+    public ParenthesedExpressionList() {
+    }
 
     public ParenthesedExpressionList(ExpressionList<T> expressions) {
         addAll(expressions);

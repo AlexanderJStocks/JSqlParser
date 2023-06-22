@@ -19,7 +19,6 @@ import net.sf.jsqlparser.statement.select.PlainSelect;
 import net.sf.jsqlparser.statement.select.Select;
 import net.sf.jsqlparser.statement.select.SelectVisitorAdapter;
 import org.junit.jupiter.api.Test;
-
 import static net.sf.jsqlparser.test.TestUtils.assertDeparse;
 import static net.sf.jsqlparser.test.TestUtils.assertEqualsObjectTree;
 import static net.sf.jsqlparser.test.TestUtils.assertSqlCanBeParsedAndDeparsed;
@@ -36,37 +35,33 @@ public class MySqlSqlCalcFoundRowsTest {
         MySqlSqlCalcFoundRowRef ref = new MySqlSqlCalcFoundRowRef(false);
         String sqlCalcFoundRowsContainingSql = "SELECT SQL_CALC_FOUND_ROWS * FROM TABLE";
         String generalSql = "SELECT * FROM TABLE";
-
         accept(CCJSqlParserUtil.parse(sqlCalcFoundRowsContainingSql), ref);
         assertTrue(ref.sqlCalcFoundRows);
-
         accept(CCJSqlParserUtil.parse(generalSql), ref);
         assertFalse(ref.sqlCalcFoundRows);
-
         Statement parsed = assertSqlCanBeParsedAndDeparsed(sqlCalcFoundRowsContainingSql);
         assertSqlCanBeParsedAndDeparsed(generalSql);
-        Select created = new PlainSelect().addSelectItem(new AllColumns())
-                .withMySqlSqlCalcFoundRows(true).withFromItem(new Table("TABLE"));
+        Select created = new PlainSelect().addSelectItem(new AllColumns()).withMySqlSqlCalcFoundRows(true).withFromItem(new Table("TABLE"));
         assertDeparse(created, sqlCalcFoundRowsContainingSql);
         assertEqualsObjectTree(parsed, created);
     }
 
     private void accept(Statement statement, final MySqlSqlCalcFoundRowRef ref) {
         statement.accept(new StatementVisitorAdapter() {
+
             @Override
             public void visit(Select select) {
                 select.accept(new SelectVisitorAdapter() {
+
                     @Override
                     public void visit(PlainSelect plainSelect) {
                         ref.sqlCalcFoundRows = plainSelect.getMySqlSqlCalcFoundRows();
                     }
                 });
             }
-
         });
     }
 }
-
 
 class MySqlSqlCalcFoundRowRef {
 

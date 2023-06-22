@@ -14,6 +14,7 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class AllColumns extends ASTNodeAccessImpl implements Expression {
+
     @Override
     public String toString() {
         return "*";

@@ -13,13 +13,13 @@ import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.schema.Column;
-
 import java.util.Collection;
 import java.util.List;
 
 public class PivotXml extends Pivot {
 
     private Select inSelect;
+
     private boolean inAny = false;
 
     @Override
@@ -46,14 +46,8 @@ public class PivotXml extends Pivot {
     @Override
     public String toString() {
         List<Column> forColumns = getForColumns();
-        String in = inAny ? "ANY"
-                : inSelect == null ? PlainSelect.getStringList(getInItems()) : inSelect.toString();
-        return "PIVOT XML ("
-                + PlainSelect.getStringList(getFunctionItems())
-                + " FOR "
-                + PlainSelect.getStringList(forColumns, true,
-                        forColumns != null && forColumns.size() > 1)
-                + " IN (" + in + "))";
+        String in = inAny ? "ANY" : inSelect == null ? PlainSelect.getStringList(getInItems()) : inSelect.toString();
+        return "PIVOT XML (" + PlainSelect.getStringList(getFunctionItems()) + " FOR " + PlainSelect.getStringList(forColumns, true, forColumns != null && forColumns.size() > 1) + " IN (" + in + "))";
     }
 
     public PivotXml withInSelect(Select inSelect) {
@@ -134,5 +128,4 @@ public class PivotXml extends Pivot {
     public PivotXml addMultiInItems(Collection<? extends SelectItem<ExpressionList>> multiInItems) {
         return (PivotXml) super.addMultiInItems(multiInItems);
     }
-
 }

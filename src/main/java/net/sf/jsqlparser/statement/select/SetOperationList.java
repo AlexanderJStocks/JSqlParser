@@ -18,7 +18,9 @@ import java.util.Optional;
 public class SetOperationList extends Select {
 
     private List<Select> selects;
+
     private List<SetOperation> operations;
+
     private List<OrderByElement> orderByElements;
 
     @Override
@@ -71,7 +73,6 @@ public class SetOperationList extends Select {
             }
             builder.append(selects.get(i).toString());
         }
-
         if (orderByElements != null) {
             builder.append(PlainSelect.orderByToString(orderByElements));
         }
@@ -101,20 +102,19 @@ public class SetOperationList extends Select {
     }
 
     public SetOperationList addOperations(SetOperation... operationList) {
-        List<SetOperation> collection =
-                Optional.ofNullable(getOperations()).orElseGet(ArrayList::new);
+        List<SetOperation> collection = Optional.ofNullable(getOperations()).orElseGet(ArrayList::new);
         Collections.addAll(collection, operationList);
         return this.withOperations(collection);
     }
 
     public SetOperationList addOperations(Collection<? extends SetOperation> operationList) {
-        List<SetOperation> collection =
-                Optional.ofNullable(getOperations()).orElseGet(ArrayList::new);
+        List<SetOperation> collection = Optional.ofNullable(getOperations()).orElseGet(ArrayList::new);
         collection.addAll(operationList);
         return this.withOperations(collection);
     }
 
     public enum SetOperationType {
+
         INTERSECT, EXCEPT, MINUS, UNION;
 
         public static SetOperationType from(String type) {

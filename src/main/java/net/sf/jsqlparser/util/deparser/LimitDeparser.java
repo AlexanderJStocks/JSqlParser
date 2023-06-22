@@ -13,6 +13,7 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.statement.select.Limit;
 
 public class LimitDeparser extends AbstractDeParser<Limit> {
+
     private ExpressionVisitor expressionVisitor;
 
     public LimitDeparser(ExpressionVisitor expressionVisitor, StringBuilder buffer) {
@@ -33,13 +34,11 @@ public class LimitDeparser extends AbstractDeParser<Limit> {
                     limit.getOffset().accept(expressionVisitor);
                     buffer.append(", ");
                 }
-
                 if (null != limit.getRowCount()) {
                     limit.getRowCount().accept(expressionVisitor);
                 }
             }
         }
-
         if (limit.getByExpressions() != null) {
             buffer.append(" BY ");
             limit.getByExpressions().accept(expressionVisitor);

@@ -12,11 +12,12 @@ package net.sf.jsqlparser.expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.ParenthesedExpressionList;
 
-public class RowConstructor<T extends Expression> extends ParenthesedExpressionList<T>
-        implements Expression {
+public class RowConstructor<T extends Expression> extends ParenthesedExpressionList<T> implements Expression {
+
     private String name = null;
 
-    public RowConstructor() {}
+    public RowConstructor() {
+    }
 
     public RowConstructor(String name, ExpressionList<T> expressionList) {
         this.name = name;

@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class ReferentialAction implements Serializable {
 
     private Type type;
+
     private Action action;
 
     public ReferentialAction() {
@@ -39,7 +40,7 @@ public class ReferentialAction implements Serializable {
     }
 
     public Action getAction() {
-        return action;
+        return getResponse();
     }
 
     public void setAction(Action action) {
@@ -62,9 +63,7 @@ public class ReferentialAction implements Serializable {
 
     @Override
     public String toString() {
-        return new StringBuilder(" ON ").append(getType().name()).append(" ")
-                .append(getAction().getAction())
-                .toString();
+        return new StringBuilder(" ON ").append(getType().name()).append(" ").append(getAction().getAction()).toString();
     }
 
     @Override
@@ -88,6 +87,7 @@ public class ReferentialAction implements Serializable {
     }
 
     public enum Type {
+
         DELETE, UPDATE;
 
         public static Type from(String name) {
@@ -96,8 +96,8 @@ public class ReferentialAction implements Serializable {
     }
 
     public enum Action {
-        CASCADE("CASCADE"), RESTRICT("RESTRICT"), NO_ACTION("NO ACTION"), SET_DEFAULT(
-                "SET DEFAULT"), SET_NULL("SET NULL");
+
+        CASCADE("CASCADE"), RESTRICT("RESTRICT"), NO_ACTION("NO ACTION"), SET_DEFAULT("SET DEFAULT"), SET_NULL("SET NULL");
 
         private final String action;
 
@@ -120,8 +120,11 @@ public class ReferentialAction implements Serializable {
         }
 
         public String getAction() {
-            return action;
+            return getResponse();
         }
     }
 
+    private Action getResponse() {
+        return action;
+    }
 }

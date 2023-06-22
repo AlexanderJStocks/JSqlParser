@@ -9,7 +9,6 @@
  */
 package net.sf.jsqlparser.statement;
 
-
 public final class ResetStatement implements Statement {
 
     private String name = "";
@@ -23,15 +22,15 @@ public final class ResetStatement implements Statement {
     }
 
     public void add(String name) {
-        this.name = name;
+        setNameAttribute(name);
     }
-    
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        setNameAttribute(name);
     }
 
     @Override
@@ -45,4 +44,7 @@ public final class ResetStatement implements Statement {
         statementVisitor.visit(this);
     }
 
+    private void setNameAttribute(String name) {
+        this.name = name;
+    }
 }

@@ -12,7 +12,6 @@ package net.sf.jsqlparser.expression.operators.relational;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.SimpleNode;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +21,8 @@ import java.util.List;
 /**
  * A list of expressions, as in SELECT A FROM TAB WHERE B IN (expr1,expr2,expr3)
  */
-public class ExpressionList<T extends Expression> extends ArrayList<T>
-        implements Expression, Serializable {
+public class ExpressionList<T extends Expression> extends ArrayList<T> implements Expression, Serializable {
+
     private transient SimpleNode node;
 
     public ExpressionList(Collection<? extends T> expressions) {

@@ -15,7 +15,6 @@ import net.sf.jsqlparser.expression.OracleHierarchicalExpression;
 import net.sf.jsqlparser.expression.OracleHint;
 import net.sf.jsqlparser.expression.WindowDefinition;
 import net.sf.jsqlparser.schema.Table;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,38 +22,63 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-
 import static java.util.stream.Collectors.joining;
 
-@SuppressWarnings({"PMD.CyclomaticComplexity"})
+@SuppressWarnings({ "PMD.CyclomaticComplexity" })
 public class PlainSelect extends Select {
 
     private Distinct distinct = null;
+
     private List<SelectItem<?>> selectItems;
+
     private List<Table> intoTables;
+
     private FromItem fromItem;
+
     private List<LateralView> lateralViews;
+
     private List<Join> joins;
+
     private Expression where;
+
     private GroupByElement groupBy;
+
     private Expression having;
+
     private Expression qualify;
+
     private OptimizeFor optimizeFor;
+
     private Skip skip;
+
     private boolean mySqlHintStraightJoin;
+
     private First first;
+
     private Top top;
+
     private OracleHierarchicalExpression oracleHierarchical = null;
+
     private OracleHint oracleHint = null;
+
     private boolean forUpdate = false;
+
     private Table forUpdateTable = null;
+
     private boolean skipLocked;
+
     private Wait wait;
+
     private boolean mySqlSqlCalcFoundRows = false;
+
     private MySqlSqlCacheFlags mySqlCacheFlag = null;
+
     private String forXmlPath;
+
     private KSQLWindow ksqlWindow = null;
+
     private boolean noWait = false;
+
     private boolean emitChanges = false;
 
     private List<WindowDefinition> windowDefinitions;
@@ -151,7 +175,6 @@ public class PlainSelect extends Select {
         } else {
             this.lateralViews.clear();
         }
-
         if (lateralViews != null) {
             this.lateralViews.addAll(lateralViews);
         } else {
@@ -163,7 +186,6 @@ public class PlainSelect extends Select {
         if (this.lateralViews == null) {
             this.lateralViews = new ArrayList<>();
         }
-
         this.lateralViews.add(lateralView);
         return this;
     }
@@ -394,27 +416,21 @@ public class PlainSelect extends Select {
         this.skipLocked = skipLocked;
     }
 
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.ExcessiveMethodLength",
-            "PMD.NPathComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.ExcessiveMethodLength", "PMD.NPathComplexity" })
     public StringBuilder appendSelectBodyTo(StringBuilder builder) {
         builder.append("SELECT ");
-
         if (this.mySqlHintStraightJoin) {
             builder.append("STRAIGHT_JOIN ");
         }
-
         if (oracleHint != null) {
             builder.append(oracleHint).append(" ");
         }
-
         if (skip != null) {
             builder.append(skip).append(" ");
         }
-
         if (first != null) {
             builder.append(first).append(" ");
         }
-
         if (distinct != null) {
             builder.append(distinct).append(" ");
         }
@@ -428,17 +444,15 @@ public class PlainSelect extends Select {
             builder.append("SQL_CALC_FOUND_ROWS").append(" ");
         }
         builder.append(getStringList(selectItems));
-
         if (intoTables != null) {
             builder.append(" INTO ");
-            for (Iterator<Table> iter = intoTables.iterator(); iter.hasNext();) {
+            for (Iterator<Table> iter = intoTables.iterator(); iter.hasNext(); ) {
                 builder.append(iter.next().toString());
                 if (iter.hasNext()) {
                     builder.append(", ");
                 }
             }
         }
-
         if (fromItem != null) {
             builder.append(" FROM ").append(fromItem);
             if (lateralViews != null) {
@@ -455,11 +469,9 @@ public class PlainSelect extends Select {
                     }
                 }
             }
-
             if (isUsingFinal) {
                 builder.append(" FINAL");
             }
-
             if (ksqlWindow != null) {
                 builder.append(" WINDOW ").append(ksqlWindow);
             }
@@ -480,24 +492,20 @@ public class PlainSelect extends Select {
             }
             if (windowDefinitions != null) {
                 builder.append(" WINDOW ");
-                builder.append(windowDefinitions.stream().map(WindowDefinition::toString)
-                        .collect(joining(", ")));
+                builder.append(windowDefinitions.stream().map(WindowDefinition::toString).collect(joining(", ")));
             }
             if (emitChanges) {
                 builder.append(" EMIT CHANGES");
             }
             if (isForUpdate()) {
                 builder.append(" FOR UPDATE");
-
                 if (forUpdateTable != null) {
                     builder.append(" OF ").append(forUpdateTable);
                 }
-
                 if (wait != null) {
                     // Wait's toString will do the formatting for us
                     builder.append(wait);
                 }
-
                 if (isNoWait()) {
                     builder.append(" NOWAIT");
                 } else if (isSkipLocked()) {
@@ -514,20 +522,16 @@ public class PlainSelect extends Select {
     }
 
     @Override
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.ExcessiveMethodLength",
-            "PMD.NPathComplexity"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.ExcessiveMethodLength", "PMD.NPathComplexity" })
     public String toString() {
         StringBuilder builder = new StringBuilder();
         super.appendTo(builder);
-
         if (optimizeFor != null) {
             builder.append(optimizeFor);
         }
-
         if (forXmlPath != null) {
             builder.append(" FOR XML PATH(").append(forXmlPath).append(")");
         }
-
         return builder.toString();
     }
 
@@ -661,8 +665,7 @@ public class PlainSelect extends Select {
     }
 
     public PlainSelect addSelectItems(Collection<? extends SelectItem<?>> selectItems) {
-        List<SelectItem<?>> collection =
-                Optional.ofNullable(getSelectItems()).orElseGet(ArrayList::new);
+        List<SelectItem<?>> collection = Optional.ofNullable(getSelectItems()).orElseGet(ArrayList::new);
         collection.addAll(selectItems);
         return this.withSelectItems(collection);
     }

@@ -113,9 +113,9 @@ import net.sf.jsqlparser.util.validation.metadata.NamedObject;
 /**
  * @author gitmotte
  */
-@SuppressWarnings({"PMD.CyclomaticComplexity"})
-public class ExpressionValidator extends AbstractValidator<Expression>
-        implements ExpressionVisitor {
+@SuppressWarnings({ "PMD.CyclomaticComplexity" })
+public class ExpressionValidator extends AbstractValidator<Expression> implements ExpressionVisitor {
+
     @Override
     public void visit(Addition addition) {
         visitBinaryExpression(addition, " + ");
@@ -138,7 +138,6 @@ public class ExpressionValidator extends AbstractValidator<Expression>
         validateOptionalExpressionList(overlapsCondition.getLeft());
         validateOptionalExpressionList(overlapsCondition.getRight());
     }
-
 
     @Override
     public void visit(EqualsTo equalsTo) {
@@ -180,16 +179,14 @@ public class ExpressionValidator extends AbstractValidator<Expression>
         visitBinaryExpression(expr, " << ");
     }
 
-    public void visitOldOracleJoinBinaryExpression(OldOracleJoinBinaryExpression expression,
-            String operator) {
+    public void visitOldOracleJoinBinaryExpression(OldOracleJoinBinaryExpression expression, String operator) {
         for (ValidationCapability c : getCapabilities()) {
             validateOptionalExpression(expression.getLeftExpression(), this);
             if (expression.getOldOracleJoinSyntax() != SupportsOldOracleJoinSyntax.NO_ORACLE_JOIN) {
                 validateFeature(c, Feature.oracleOldJoinSyntax);
             }
             validateOptionalExpression(expression.getRightExpression(), this);
-            if (expression
-                    .getOraclePriorPosition() != SupportsOldOracleJoinSyntax.NO_ORACLE_PRIOR) {
+            if (expression.getOraclePriorPosition() != SupportsOldOracleJoinSyntax.NO_ORACLE_PRIOR) {
                 validateFeature(c, Feature.oraclePriorPosition);
             }
         }
@@ -203,15 +200,13 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     @Override
     public void visit(GreaterThanEquals greaterThanEquals) {
         visitOldOracleJoinBinaryExpression(greaterThanEquals, " >= ");
-
     }
 
     @Override
     public void visit(InExpression inExpression) {
         for (ValidationCapability c : getCapabilities()) {
             validateOptionalExpression(inExpression.getLeftExpression(), this);
-            if (inExpression
-                    .getOldOracleJoinSyntax() != SupportsOldOracleJoinSyntax.NO_ORACLE_JOIN) {
+            if (inExpression.getOldOracleJoinSyntax() != SupportsOldOracleJoinSyntax.NO_ORACLE_JOIN) {
                 validateFeature(c, Feature.oracleOldJoinSyntax);
             }
         }
@@ -246,8 +241,7 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     @Override
     public void visit(LikeExpression likeExpression) {
         validateFeature(Feature.exprLike);
-        visitBinaryExpression(likeExpression, (likeExpression.isNot() ? " NOT" : "")
-                + (likeExpression.isCaseInsensitive() ? " ILIKE " : " LIKE "));
+        visitBinaryExpression(likeExpression, (likeExpression.isNot() ? " NOT" : "") + (likeExpression.isCaseInsensitive() ? " ILIKE " : " LIKE "));
     }
 
     @Override
@@ -269,25 +263,21 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     @Override
     public void visit(MinorThan minorThan) {
         visitOldOracleJoinBinaryExpression(minorThan, " < ");
-
     }
 
     @Override
     public void visit(MinorThanEquals minorThanEquals) {
         visitOldOracleJoinBinaryExpression(minorThanEquals, " <= ");
-
     }
 
     @Override
     public void visit(Multiplication multiplication) {
         visitBinaryExpression(multiplication, " * ");
-
     }
 
     @Override
     public void visit(NotEqualsTo notEqualsTo) {
-        visitOldOracleJoinBinaryExpression(notEqualsTo,
-                " " + notEqualsTo.getStringExpression() + " ");
+        visitOldOracleJoinBinaryExpression(notEqualsTo, " " + notEqualsTo.getStringExpression() + " ");
     }
 
     @Override
@@ -298,13 +288,11 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     @Override
     public void visit(OrExpression orExpression) {
         visitBinaryExpression(orExpression, " OR ");
-
     }
 
     @Override
     public void visit(XorExpression xorExpression) {
         visitBinaryExpression(xorExpression, " XOR ");
-
     }
 
     @Override
@@ -340,15 +328,12 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     @Override
     public void visit(Function function) {
         validateFeature(Feature.function);
-
         validateOptionalExpressionList(function.getNamedParameters());
         validateOptionalExpressionList(function.getParameters());
-
         Object attribute = function.getAttribute();
         if (attribute instanceof Expression) {
             validateOptionalExpression((Expression) attribute, this);
         }
-
         validateOptionalExpression(function.getKeep(), this);
         validateOptionalOrderByElements(function.getOrderByElements());
     }
@@ -374,9 +359,7 @@ public class ExpressionValidator extends AbstractValidator<Expression>
         if (switchExp != null) {
             switchExp.accept(this);
         }
-
         caseExpression.getWhenClauses().forEach(wc -> wc.accept(this));
-
         Expression elseExp = caseExpression.getElseExpression();
         if (elseExp != null) {
             elseExp.accept(this);
@@ -630,14 +613,15 @@ public class ExpressionValidator extends AbstractValidator<Expression>
     }
 
     @Override
-    public void visit(AllColumns allColumns) {}
+    public void visit(AllColumns allColumns) {
+    }
 
     @Override
-    public void visit(AllTableColumns allTableColumns) {}
+    public void visit(AllTableColumns allTableColumns) {
+    }
 
     @Override
     public void visit(AllValue allValue) {
-
     }
 
     @Override
@@ -653,7 +637,6 @@ public class ExpressionValidator extends AbstractValidator<Expression>
 
     @Override
     public void visit(Select selectBody) {
-
     }
 
     @Override

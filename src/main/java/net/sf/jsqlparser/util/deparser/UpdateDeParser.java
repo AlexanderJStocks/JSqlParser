@@ -16,7 +16,6 @@ import net.sf.jsqlparser.statement.select.OrderByElement;
 import net.sf.jsqlparser.statement.select.OrderByVisitor;
 import net.sf.jsqlparser.statement.select.WithItem;
 import net.sf.jsqlparser.statement.update.Update;
-
 import java.util.Iterator;
 
 public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByVisitor {
@@ -33,12 +32,11 @@ public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByV
     }
 
     @Override
-    @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.NPathComplexity",
-            "PMD.ExcessiveMethodLength"})
+    @SuppressWarnings({ "PMD.CyclomaticComplexity", "PMD.NPathComplexity", "PMD.ExcessiveMethodLength" })
     public void deParse(Update update) {
         if (update.getWithItemsList() != null && !update.getWithItemsList().isEmpty()) {
             buffer.append("WITH ");
-            for (Iterator<WithItem> iter = update.getWithItemsList().iterator(); iter.hasNext();) {
+            for (Iterator<WithItem> iter = update.getWithItemsList().iterator(); iter.hasNext(); ) {
                 WithItem withItem = iter.next();
                 buffer.append(withItem);
                 if (iter.hasNext()) {
@@ -65,13 +63,10 @@ public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByV
             }
         }
         buffer.append(" SET ");
-
         deparseUpdateSets(update.getUpdateSets(), buffer, expressionVisitor);
-
         if (update.getOutputClause() != null) {
             update.getOutputClause().appendTo(buffer);
         }
-
         if (update.getFromItem() != null) {
             buffer.append(" FROM ").append(update.getFromItem());
             if (update.getJoins() != null) {
@@ -84,7 +79,6 @@ public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByV
                 }
             }
         }
-
         if (update.getWhere() != null) {
             buffer.append(" WHERE ");
             update.getWhere().accept(expressionVisitor);
@@ -95,7 +89,6 @@ public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByV
         if (update.getLimit() != null) {
             new LimitDeparser(expressionVisitor, buffer).deParse(update.getLimit());
         }
-
         if (update.getReturningClause() != null) {
             update.getReturningClause().appendTo(buffer);
         }
@@ -119,9 +112,7 @@ public class UpdateDeParser extends AbstractDeParser<Update> implements OrderByV
         }
         if (orderBy.getNullOrdering() != null) {
             buffer.append(' ');
-            buffer.append(orderBy.getNullOrdering() == OrderByElement.NullOrdering.NULLS_FIRST
-                    ? "NULLS FIRST"
-                    : "NULLS LAST");
+            buffer.append(orderBy.getNullOrdering() == OrderByElement.NullOrdering.NULLS_FIRST ? "NULLS FIRST" : "NULLS LAST");
         }
     }
 }

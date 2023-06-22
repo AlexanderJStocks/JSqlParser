@@ -13,7 +13,9 @@ import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.parser.ASTNodeAccessImpl;
 
 public class ArrayConstructor extends ASTNodeAccessImpl implements Expression {
+
     private ExpressionList<?> expressions;
+
     private boolean arrayKeyword;
 
     public ExpressionList<?> getExpressions() {

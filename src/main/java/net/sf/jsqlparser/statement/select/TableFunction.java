@@ -12,7 +12,7 @@ package net.sf.jsqlparser.statement.select;
 import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Function;
 
-@SuppressWarnings({"PMD.UncommentedEmptyMethodBody"})
+@SuppressWarnings({ "PMD.UncommentedEmptyMethodBody" })
 public class TableFunction extends SelectItem<Function> implements FromItem {
 
     @Override
@@ -22,22 +22,20 @@ public class TableFunction extends SelectItem<Function> implements FromItem {
 
     @Override
     public Pivot getPivot() {
-        return null;
+        return emptyMethod();
     }
 
     @Override
     public void setPivot(Pivot pivot) {
-
     }
 
     @Override
     public UnPivot getUnPivot() {
-        return null;
+        return emptyMethod();
     }
 
     @Override
     public void setUnPivot(UnPivot unpivot) {
-
     }
 
     @Override
@@ -60,4 +58,7 @@ public class TableFunction extends SelectItem<Function> implements FromItem {
         return (TableFunction) FromItem.super.withUnPivot(unpivot);
     }
 
+    private Pivot emptyMethod() {
+        return null;
+    }
 }

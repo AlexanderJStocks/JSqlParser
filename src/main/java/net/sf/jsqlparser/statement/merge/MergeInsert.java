@@ -12,7 +12,6 @@ package net.sf.jsqlparser.statement.merge;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.schema.Column;
-
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +20,9 @@ import java.util.Optional;
 public class MergeInsert implements Serializable {
 
     private ExpressionList<Column> columns;
+
     private ExpressionList<Expression> values;
+
     private Expression whereCondition;
 
     public ExpressionList<Column> getColumns() {
@@ -50,12 +51,7 @@ public class MergeInsert implements Serializable {
 
     @Override
     public String toString() {
-        return " WHEN NOT MATCHED THEN INSERT "
-                + (columns != null ? columns.toString() : "")
-                + " VALUES " + values.toString()
-                + (whereCondition != null
-                        ? " WHERE " + whereCondition
-                        : "");
+        return " WHEN NOT MATCHED THEN INSERT " + (columns != null ? columns.toString() : "") + " VALUES " + values.toString() + (whereCondition != null ? " WHERE " + whereCondition : "");
     }
 
     public MergeInsert withColumns(ExpressionList<Column> columns) {
@@ -73,8 +69,7 @@ public class MergeInsert implements Serializable {
     }
 
     public MergeInsert addColumns(Collection<? extends Column> columns) {
-        ExpressionList<Column> collection =
-                Optional.ofNullable(getColumns()).orElseGet(ExpressionList::new);
+        ExpressionList<Column> collection = Optional.ofNullable(getColumns()).orElseGet(ExpressionList::new);
         collection.addAll(columns);
         return this.withColumns(collection);
     }
@@ -84,8 +79,7 @@ public class MergeInsert implements Serializable {
     }
 
     public MergeInsert addValues(Collection<? extends Expression> values) {
-        ExpressionList<Expression> collection =
-                Optional.ofNullable(getValues()).orElseGet(ExpressionList::new);
+        ExpressionList<Expression> collection = Optional.ofNullable(getValues()).orElseGet(ExpressionList::new);
         collection.addAll(values);
         return this.withValues(collection);
     }

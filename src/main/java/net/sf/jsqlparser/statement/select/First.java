@@ -10,12 +10,12 @@
 package net.sf.jsqlparser.statement.select;
 
 import net.sf.jsqlparser.expression.JdbcParameter;
-
 import java.io.Serializable;
 
 public class First implements Serializable {
 
     public enum Keyword {
+
         FIRST, LIMIT;
 
         public static Keyword from(String keyword) {
@@ -24,8 +24,11 @@ public class First implements Serializable {
     }
 
     private Keyword keyword;
+
     private Long rowCount;
+
     private JdbcParameter jdbcParameter;
+
     private String variable;
 
     public Long getRowCount() {
@@ -63,7 +66,6 @@ public class First implements Serializable {
     @Override
     public String toString() {
         String result = keyword.name() + " ";
-
         if (rowCount != null) {
             result += rowCount;
         } else if (jdbcParameter != null) {
@@ -71,7 +73,6 @@ public class First implements Serializable {
         } else if (variable != null) {
             result += variable;
         }
-
         return result;
     }
 

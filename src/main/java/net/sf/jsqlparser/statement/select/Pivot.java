@@ -13,7 +13,6 @@ import net.sf.jsqlparser.expression.Alias;
 import net.sf.jsqlparser.expression.Function;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.schema.Column;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +24,13 @@ import java.util.Optional;
 public class Pivot implements Serializable {
 
     private List<SelectItem<Function>> functionItems;
+
     private ExpressionList<Column> forColumns;
+
     private List<SelectItem<?>> singleInItems;
+
     private List<SelectItem<ExpressionList>> multiInItems;
+
     private Alias alias;
 
     public void accept(PivotVisitor pivotVisitor) {
@@ -80,13 +83,7 @@ public class Pivot implements Serializable {
 
     @Override
     public String toString() {
-        return "PIVOT ("
-                + PlainSelect.getStringList(functionItems)
-                + " FOR "
-                + PlainSelect.getStringList(forColumns, true,
-                        forColumns != null && forColumns.size() > 1)
-                + " IN " + PlainSelect.getStringList(getInItems(), true, true) + ")"
-                + (alias != null ? alias.toString() : "");
+        return "PIVOT (" + PlainSelect.getStringList(functionItems) + " FOR " + PlainSelect.getStringList(forColumns, true, forColumns != null && forColumns.size() > 1) + " IN " + PlainSelect.getStringList(getInItems(), true, true) + ")" + (alias != null ? alias.toString() : "");
     }
 
     public Pivot withFunctionItems(List<SelectItem<Function>> functionItems) {
@@ -115,15 +112,13 @@ public class Pivot implements Serializable {
     }
 
     public Pivot addFunctionItems(SelectItem<Function>... functionItems) {
-        List<SelectItem<Function>> collection =
-                Optional.ofNullable(getFunctionItems()).orElseGet(ArrayList::new);
+        List<SelectItem<Function>> collection = Optional.ofNullable(getFunctionItems()).orElseGet(ArrayList::new);
         Collections.addAll(collection, functionItems);
         return this.withFunctionItems(collection);
     }
 
     public Pivot addFunctionItems(Collection<? extends SelectItem<Function>> functionItems) {
-        List<SelectItem<Function>> collection =
-                Optional.ofNullable(getFunctionItems()).orElseGet(ArrayList::new);
+        List<SelectItem<Function>> collection = Optional.ofNullable(getFunctionItems()).orElseGet(ArrayList::new);
         collection.addAll(functionItems);
         return this.withFunctionItems(collection);
     }
@@ -133,36 +128,31 @@ public class Pivot implements Serializable {
     }
 
     public Pivot addForColumns(Collection<? extends Column> forColumns) {
-        ExpressionList<Column> collection =
-                Optional.ofNullable(getForColumns()).orElseGet(ExpressionList::new);
+        ExpressionList<Column> collection = Optional.ofNullable(getForColumns()).orElseGet(ExpressionList::new);
         collection.addAll(forColumns);
         return this.withForColumns(collection);
     }
 
     public Pivot addSingleInItems(SelectItem<?>... singleInItems) {
-        List<SelectItem<?>> collection =
-                Optional.ofNullable(getSingleInItems()).orElseGet(ArrayList::new);
+        List<SelectItem<?>> collection = Optional.ofNullable(getSingleInItems()).orElseGet(ArrayList::new);
         Collections.addAll(collection, singleInItems);
         return this.withSingleInItems(collection);
     }
 
     public Pivot addSingleInItems(Collection<? extends SelectItem<?>> singleInItems) {
-        List<SelectItem<?>> collection =
-                Optional.ofNullable(getSingleInItems()).orElseGet(ArrayList::new);
+        List<SelectItem<?>> collection = Optional.ofNullable(getSingleInItems()).orElseGet(ArrayList::new);
         collection.addAll(singleInItems);
         return this.withSingleInItems(collection);
     }
 
     public Pivot addMultiInItems(SelectItem<ExpressionList>... multiInItems) {
-        List<SelectItem<ExpressionList>> collection =
-                Optional.ofNullable(getMultiInItems()).orElseGet(ArrayList::new);
+        List<SelectItem<ExpressionList>> collection = Optional.ofNullable(getMultiInItems()).orElseGet(ArrayList::new);
         Collections.addAll(collection, multiInItems);
         return this.withMultiInItems(collection);
     }
 
     public Pivot addMultiInItems(Collection<? extends SelectItem<ExpressionList>> multiInItems) {
-        List<SelectItem<ExpressionList>> collection =
-                Optional.ofNullable(getMultiInItems()).orElseGet(ArrayList::new);
+        List<SelectItem<ExpressionList>> collection = Optional.ofNullable(getMultiInItems()).orElseGet(ArrayList::new);
         collection.addAll(multiInItems);
         return this.withMultiInItems(collection);
     }
